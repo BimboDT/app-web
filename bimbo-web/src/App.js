@@ -1,12 +1,11 @@
 import './styles/App.css';
+import Almacen from './componentes/Almacen';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          HOLA MUNDO
-        </p>
+        <Almacen />
       </header>
     </div>
   );

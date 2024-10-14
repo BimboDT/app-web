@@ -14,18 +14,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #E2E2E2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  color: black;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +31,73 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.almacen{
+  display: flex;
+  flex-direction: row;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+}
+
+.oficina {
+  background-color: rgba(26, 0, 99, 0.8);
+  height: 200px;
+  width: 250px;
+  float: right;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.cuadrado {
+  background-color: rgba(116, 111, 111, 0.8);
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.circulo {
+  background-color: #FFFFFF;
+  flex-direction: column;
+  height: 40px;
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.barra-gris {
+  background-color: rgba(201, 208, 199, 0.8);
+  height: 35px;
+  width: 18px;
+  margin: 2px;
+}
+
+.barra-verde {
+  background-color: rgba(83, 207, 52, 0.8);
+  height: 35px;
+  width: 18px;
+  margin: 2px;
+}
+
+.barra-amarilla {
+  background-color: rgba(207, 201, 52, 0.8);
+  height: 35px;
+  width: 18px;
+  margin: 2px;
+}
+
+.barra-roja {
+  background-color: rgba(207, 61, 52, 0.8);
+  height: 35px;
+  width: 18px;
+  margin: 2px;
 }
