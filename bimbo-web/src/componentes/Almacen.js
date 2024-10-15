@@ -10,15 +10,18 @@ const Almacen = () => {
             <Porcentaje />
             <Porcentaje />
             <Porcentaje />
-        </div>
-        <div className="columna">
-            <Porcentaje />
-            <Porcentaje />
-            <Porcentaje />
-            <Porcentaje />
             <Porcentaje />
         </div>
         <div className="columna">
+            <Porcentaje />
+            <Porcentaje />
+            <Porcentaje />
+            <Porcentaje />
+            <Porcentaje />
+            <Porcentaje />
+        </div>
+        <div className="columna">
+            <Porcentaje />
             <Porcentaje />
             <Porcentaje />
             <Porcentaje />

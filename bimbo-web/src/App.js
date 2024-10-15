@@ -4,9 +4,9 @@ import Almacen from './componentes/Almacen';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Almacen />
-      </header>
+      <br/>
+      <br/>
+      <Almacen/>
     </div>
   );
 }
