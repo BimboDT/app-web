@@ -1,11 +1,10 @@
 .App {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   background-color: #E2E2E2;
   height: 100vh;
   overflow: hidden;
-  padding: 20px;
 }
 
 .almacen{
@@ -43,6 +42,13 @@
   justify-content: center;
   align-items: center;
   margin: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cuadrado:hover {
+  background-color: rgba(111, 228, 227, 0.8);
+  height: 9vh;
 }
 
 .circulo {
@@ -89,6 +95,41 @@
   margin: 2px;
 }
 
+.toggle-button {
+  cursor: pointer;
+  padding: 5px;
+  max-height: 40px;
+  max-width: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  color: black;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  margin-left: 3rem;
+}
+
+.toggle-button:hover {
+  background-color: #c2c2c2;
+}
+
+.triangle {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid black;
+  transition: transform 0.3s;
+  margin: 10px;
+}
+
+.triangle.open {
+  transform: rotate(180deg);
+}
+
+.container {
+  transition-duration: ".4s";
+  padding: 10px;
+}
 
 .rack{
   position:relative;
@@ -101,7 +142,6 @@
   justify-content: space-between;
   margin-top: 40px;
 }
-
 
 .estante {
   display: flex;
@@ -134,7 +174,6 @@
   margin: 0 40px;
 }
 
-
 .cajas {
   position: relative;
   display: flex;
@@ -145,7 +184,6 @@
   justify-content: space-around;
   margin-bottom: -5px; /* Ajusta este valor para que las cajas estén más cerca de los estantes */
   z-index: 2;
-  
 }
 
 .caja {
