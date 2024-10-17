@@ -2,6 +2,7 @@ import "./styles/App.css";
 import { useState } from "react";
 import Almacen from "./componentes/Almacen";
 import Filtro from "./componentes/Filtro";
+import Rack from './componentes/Rack';
 
 function App() {
   const [almacenValues, setAlmacenValues] = useState([
@@ -46,6 +47,7 @@ function App() {
     <div className="App">
       <Filtro updateAlmacenValues={updateAlmacenValues} setSelectedOption={setSelectedOption} />
       <Almacen almacenValues={almacenValues} selectedOption={selectedOption} />
+//       <Rack/>
     </div>
   );
 }
