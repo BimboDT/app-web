@@ -1,5 +1,6 @@
 import "./styles/App.css";
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Almacen from "./componentes/Almacen";
 import Filtro from "./componentes/Filtro";
 import Rack from './componentes/Rack';
@@ -44,11 +45,25 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Filtro updateAlmacenValues={updateAlmacenValues} setSelectedOption={setSelectedOption} />
-      <Almacen almacenValues={almacenValues} selectedOption={selectedOption} />
-//       <Rack/>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/almacen"
+            element={
+              <>
+                <Filtro updateAlmacenValues={updateAlmacenValues} setSelectedOption={setSelectedOption} />
+                <Almacen almacenValues={almacenValues} selectedOption={selectedOption} />
+              </>
+            }
+          />
+          <Route
+            path="/rack"
+            element={<Rack />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

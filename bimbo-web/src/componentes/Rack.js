@@ -1,10 +1,13 @@
 import "../styles/App.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const Rack = () => {
     return (
         <div className='rack'>
-            <button className='btn-back'><IoIosArrowBack size={34} /></button>
+            <Link to="/almacen" className='btn-back'>
+                <IoIosArrowBack size={34} />
+            </Link>
             <div className='rack'>
             <div className= 'background-cols'>
                 <div className='col'></div>
