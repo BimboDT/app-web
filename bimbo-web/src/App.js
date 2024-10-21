@@ -44,6 +44,12 @@ function App() {
     }
   };
 
+  const Ubicacion = ({ visible }) => {
+    return visible && <div className="ubicacion">Ubicación: ---</div>;
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Router>
       <div className="App">
@@ -52,13 +58,17 @@ function App() {
             path="/almacen"
             element={
               <>
-                <Filtro
-                  updateAlmacenValues={updateAlmacenValues}
-                  setSelectedOption={setSelectedOption}
-                />
+                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                  <Filtro
+                    updateAlmacenValues={updateAlmacenValues}
+                    setSelectedOption={setSelectedOption}
+                  />
+                  <Ubicacion visible={isHovered} />
+                </div>
                 <Almacen
                   almacenValues={almacenValues}
                   selectedOption={selectedOption}
+                  setIsHovered={setIsHovered}
                 />
               </>
             }

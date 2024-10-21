@@ -1,10 +1,11 @@
 import "../styles/App.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const Almacen = ({ almacenValues, selectedOption }) => {
-  const Componente = selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
+const Almacen = ({ almacenValues, selectedOption, setIsHovered }) => {
+  const Componente =
+    selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
 
   return (
     <div className="almacen">
@@ -12,7 +13,7 @@ const Almacen = ({ almacenValues, selectedOption }) => {
         <div className="columna" key={colIndex}>
           {values.map((value, index) => (
             <Link to="/rack" key={index}>
-              <Componente value={value} />
+              <Componente value={value} setIsHovered={setIsHovered} />
             </Link>
           ))}
         </div>
