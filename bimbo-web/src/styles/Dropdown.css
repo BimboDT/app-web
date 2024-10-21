@@ -45,12 +45,14 @@
     max-height: 20vh;
     z-index: 1000;
     opacity: 0;
+    display: none;
 }
 
 .content-open {
     transform: translateY(0);
     opacity: 1;
     pointer-events: all;
+    display: block;
 }
 
 .dropdown-item {
