@@ -1,6 +1,6 @@
 import "../styles/App.css";
 
-const Incidencias = ({value}) => {
+const Incidencias = ({value, setIsHovered}) => {
   const bars = [];
 
   if (value >= 7) {
@@ -24,7 +24,7 @@ const Incidencias = ({value}) => {
   }
 
   return (
-    <div className="cuadrado">
+    <div className="cuadrado" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <div className="circulo">
         {bars}
       </div>

@@ -1,37 +1,23 @@
 import "../styles/App.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
+import { Link } from "react-router-dom";
 
-const Almacen = ({ almacenValues, selectedOption }) => {
+const Almacen = ({ almacenValues, selectedOption, setIsHovered }) => {
+  const Componente =
+    selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
+
   return (
     <div className="almacen">
-      <div className="columna">
-        {almacenValues[0].map((value, index) => {
-          return selectedOption === "Cantidad de incidencias" ? (
-            <Incidencias key={index} value={value} />
-          ) : (
-            <Porcentaje key={index} value={value} />
-          );
-        })}
-      </div>
-      <div className="columna">
-        {almacenValues[1].map((value, index) => {
-          return selectedOption === "Cantidad de incidencias" ? (
-            <Incidencias key={index} value={value} />
-          ) : (
-            <Porcentaje key={index} value={value} />
-          );
-        })}
-      </div>
-      <div className="columna">
-        {almacenValues[2].map((value, index) => {
-          return selectedOption === "Cantidad de incidencias" ? (
-            <Incidencias key={index} value={value} />
-          ) : (
-            <Porcentaje key={index} value={value} />
-          );
-        })}
-      </div>
+      {almacenValues.map((values, colIndex) => (
+        <div className="columna" key={colIndex}>
+          {values.map((value, index) => (
+            <Link to="/rack" key={index}>
+              <Componente value={value} setIsHovered={setIsHovered} />
+            </Link>
+          ))}
+        </div>
+      ))}
       <div className="columna">
         <div className="oficina" />
         <div className="oficina" />
