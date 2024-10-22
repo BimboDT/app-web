@@ -12,6 +12,8 @@ function App() {
     [3, 4, 0, 8, 2, 2],
   ]);
 
+  const [location, setLocation] = useState("---");
+
   const [selectedOption, setSelectedOption] = useState(
     "Cantidad de producto en racks"
   );
@@ -45,10 +47,14 @@ function App() {
   };
 
   const Ubicacion = ({ visible }) => {
-    return visible && <div className="ubicacion">Ubicación: ---</div>;
+    return visible && <div className="ubicacion">Ubicación: {location}</div>;
   };
 
   const [isHovered, setIsHovered] = useState(false);
+
+  const updateLocation = (newLocation) => {
+    setLocation(newLocation);
+  };
 
   return (
     <Router>
@@ -69,6 +75,7 @@ function App() {
                   almacenValues={almacenValues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
+                  updateLocation={updateLocation}
                 />
               </>
             }
