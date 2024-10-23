@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Almacen from "./componentes/Almacen";
 import Filtro from "./componentes/Filtro";
 import Rack from "./componentes/Rack";
@@ -60,6 +60,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/" element={<Navigate to="/almacen" />} />
           <Route
             path="/almacen"
             element={
