@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(54, 54, 54);
+    background-color: rgba(0, 66, 122);
     border: 2px solid white;
     color: white;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -46,9 +46,11 @@
 }
 
 .seccion:hover {
-    background-color: lightblue;
+    background-color: rgba(0, 66, 122, 0.6);
     background-image: none;
-    border: 3px solid #333;
+    color: white;
+    border: 3px solid #FFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .seccion1 {
