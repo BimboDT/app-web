@@ -2,9 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
     overflow: hidden;
-    height: auto;
 }
 
 .area {
@@ -42,7 +40,6 @@
     transition: 0.3s;
     font-weight: bold;
     font-size: 1.2rem;
-    background-image: url('../img/mapa2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -52,4 +49,36 @@
     background-color: lightblue;
     background-image: none;
     border: 3px solid #333;
+}
+
+.seccion1 {
+    background-image: url('../img/mapa_sec1.jpg');
+}
+
+.seccion2 {
+    background-image: url('../img/mapa_sec2.jpg');
+}
+
+.seccion3 {
+    background-image: url('../img/mapa_sec3.jpg');
+}
+
+.seccion4 {
+    background-image: url('../img/mapa_sec4.jpg');
+}
+
+.seccion5 {
+    background-image: url('../img/mapa_sec5.jpg');
+}
+
+.seccion6 {
+    background-image: url('../img/mapa_sec6.jpg');
+}
+
+.seccion7 {
+    background-image: url('../img/mapa_sec7.jpg');
+}
+
+.seccion8 {
+    background-image: url('../img/mapa_sec8.jpg');
 }
