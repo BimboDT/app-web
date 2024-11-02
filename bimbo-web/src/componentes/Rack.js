@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import Info from "./Info";
+import DateTimeFilter from "./Fecha";
 
 const Rack = () => {
 
@@ -21,6 +22,7 @@ const Rack = () => {
             <Link to="/almacen" className='btn-back'>
                 <IoIosArrowBack size={34} />
             </Link>
+            <DateTimeFilter></DateTimeFilter>
             <div className={`rack ${showInfo ? 'blur' : ''}`}>
             <div className= 'background-cols'>
                 <div className='col'></div>
