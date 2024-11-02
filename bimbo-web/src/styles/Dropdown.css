@@ -1,9 +1,10 @@
 .dropdown {
     position: relative;
-    transition-duration: ".4s";
+    transition-duration: 0.4s;
     padding: 10px;
     display: flex;
     flex-direction: column;
+    left: 90px;
 }
 
 .dropdown-btn {
@@ -13,9 +14,9 @@
     padding: 0.5rem;
     background-color: white;
     border-radius: 0.5rem;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     cursor: pointer;
     margin-left: 2rem;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.1);
 }
 
 .toggle-icon {

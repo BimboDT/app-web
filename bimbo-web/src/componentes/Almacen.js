@@ -18,10 +18,6 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, updateLocation }
           ))}
         </div>
       ))}
-      <div className="columna">
-        <div className="oficina" />
-        <div className="oficina" />
-      </div>
     </div>
   );
 };
