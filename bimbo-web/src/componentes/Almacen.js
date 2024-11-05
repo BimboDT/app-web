@@ -33,9 +33,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
                 >
                   <Componente value={value} setIsHovered={setIsHovered} />
                 </Link>
-                <div className="ubicacion">
-                  Ubicación: {location}
-                </div>
+                <div className="ubicacion"> {location} </div>
               </div>
             );
           })}
