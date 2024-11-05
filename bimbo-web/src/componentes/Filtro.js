@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, forwardRef } from "react";
 import "../styles/Dropdown.css";
 
-const Filtro = ({ updateAlmacenValues, setSelectedOption }) => {
+const Filtro = ({ updateAlmacenValues, selectedOption, setSelectedOption }) => {
   const [open, setOpen] = useState(false);
   const [dropdownTop, setDropdownTop] = useState(0);
-  const [titulo, setTitulo] = useState("Cantidad de producto en racks");
+  const [titulo, setTitulo] = useState(selectedOption);
   const dropdownRef = useRef();
   const buttonRef = useRef();
   const contentRef = useRef();

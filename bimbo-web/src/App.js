@@ -85,7 +85,7 @@ function App() {
   };
 
   const Informacion = ({ visible }) => {
-    return visible && selectedRack && (
+    return visible && (
       <div className="info">En este rack hay {selectedRack}</div>
     );
   };
@@ -115,6 +115,7 @@ function App() {
                   </Link>
                   <Filtro
                     updateAlmacenValues={updateAlmacenValues}
+                    selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
                   />
                   <Informacion visible={isHovered} />
