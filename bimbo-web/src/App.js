@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, Link} from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import Almacen from "./componentes/Almacen";
 import Filtro from "./componentes/Filtro";
@@ -15,19 +15,25 @@ function App() {
     [0, 5, 6, 3, 1, 8],
   ]);
 
-  const [location, setLocation] = useState("---");
+  const [locations, ] = useState([
+    ["Pasillo AA", "Pasillo AB", "Pasillo AC", "Pasillo AD", "Pasillo AE", "Pasillo AF"],
+    ["Pasillo AG", "Pasillo AH", "Pasillo AI", "Pasillo AJ", "Pasillo AK", "Pasillo AL"],
+    ["Pasillo AM", "Pasillo AN", "Pasillo AO", "Pasillo AP", "Pasillo AQ", "Pasillo AR"],
+    ["Pasillo AS", "Pasillo AT", "Pasillo AU", "Pasillo AV", "Pasillo AW", "Pasillo AX"],
+  ]);
 
-  const [selectedOption, setSelectedOption] = useState(
-    "Cantidad de producto en racks"
-  );
+  const [info, setInfo] = useState([
+    [6156, 4341, 6827, 8789, 1043, 1925],
+    [3152, 8945, 7371, 8283, 7427, 5710],
+    [3982, 4315, 220, 8501, 2894, 2120],
+    [500, 5798, 6241, 3710, 1926, 8031],
+  ]);
+
+  const [selectedOption, setSelectedOption] = useState("Cantidad de producto en racks");
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const updateLocation = (newLocation) => {
-    setLocation(newLocation);
-  };
-
-  const [ , setSelectedRack] = useState(null);
+  const [selectedRack, setSelectedRack] = useState(null);
 
   const updateAlmacenValues = (selection) => {
     switch (selection) {
@@ -38,6 +44,12 @@ function App() {
           [3, 4, 0, 8, 2, 2],
           [0, 5, 6, 3, 1, 8],
         ]);
+        setInfo([
+          [6156, 4341, 6827, 8789, 1043, 1925],
+          [3152, 8945, 7371, 8283, 7427, 5710],
+          [3982, 4315, 220, 8501, 2894, 2120],
+          [500, 5798, 6241, 3710, 1926, 8031],
+        ]);
         break;
       case "Cantidad de incidencias":
         setAlmacenValues([
@@ -45,6 +57,12 @@ function App() {
           [4, 1, 2, 6, 3, 5],
           [1, 2, 0, 3, 2, 1],
           [8, 0, 0, 1, 0, 7],
+        ]);
+        setInfo([
+          [5, 7, 2, 0, 12, 5],
+          [10, 3, 5, 15, 8, 13],
+          [2, 5, 0, 8, 5, 2],
+          [20, 0, 0, 3, 0, 17],
         ]);
         break;
       case "Porcentaje de conteo realizado":
@@ -54,14 +72,22 @@ function App() {
           [0, 3, 8, 4, 8, 1],
           [8, 3, 5, 8, 6, 2],
         ]);
+        setInfo([
+          [97, 100, 62, 0, 100, 100],
+          [100, 75, 100, 25, 75, 88],
+          [0, 38, 100, 50, 100, 13],
+          [100, 37, 63, 100, 75, 25],
+        ]);
         break;
       default:
         break;
     }
   };
 
-  const Ubicacion = ({ visible }) => {
-    return visible && <div className="ubicacion">Ubicación: {location}</div>;
+  const Informacion = ({ visible }) => {
+    return visible && (
+      <div className="info">En este rack hay {selectedRack}</div>
+    );
   };
 
   return (
@@ -69,26 +95,38 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Navigate to="/mapa" />} />
-          <Route path="/mapa" element={<Mapa setSelectedRack={setSelectedRack} />} />
+          <Route
+            path="/mapa"
+            element={<Mapa/>}
+          />
           <Route
             path="/almacen"
             element={
               <>
-                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                  <Link to="/mapa" className='btn-back-almacen'>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Link to="/mapa" className="btn-back-almacen">
                     <IoIosArrowBack size={34} />
                   </Link>
                   <Filtro
                     updateAlmacenValues={updateAlmacenValues}
+                    selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
                   />
-                  <Ubicacion visible={isHovered} />
+                  <Informacion visible={isHovered} />
                 </div>
                 <Almacen
                   almacenValues={almacenValues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
-                  updateLocation={updateLocation}
+                  locations={locations}
+                  info={info}
+                  setSelectedRack={setSelectedRack}
                 />
               </>
             }
