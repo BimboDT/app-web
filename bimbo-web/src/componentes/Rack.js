@@ -18,11 +18,13 @@ const Rack = () => {
     };
 
     return (
-        <div className='rack'>
-            <Link to="/almacen" className='btn-back'>
-                <IoIosArrowBack size={34} />
-            </Link>
-            <DateTimeFilter></DateTimeFilter>
+        <div className="contenedor">
+            <div style={{margin: "10px"}}>
+                <Link to="/almacen" className='btn-back'>
+                    <IoIosArrowBack size={34} />
+                </Link>
+                <DateTimeFilter/>
+            </div>
             <div className={`rack ${showInfo ? 'blur' : ''}`}>
             <div className= 'background-cols'>
                 <div className='col'></div>
@@ -59,18 +61,11 @@ const Rack = () => {
                 <div className ='caja' onClick={handleBoxClick}><div className='etiqueta'></div></div>
                 <div className ='caja' onClick={handleBoxClick}><div className='etiqueta'></div></div>
             </div>
-
-
-
             <div className='estante'>
             </div>
-
+            {showInfo && <Info onClose={handleCloseInfo} />}
+            </div>
         </div>
-
-        {showInfo && <Info onClose={handleCloseInfo} />}
-        </div>
-
-
     );
 };
 
