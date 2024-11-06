@@ -16,7 +16,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
             let extra = '';
 
             if (selectedOption === "Cantidad de producto en racks") {
-              extra = " cajas almacenadas";
+              extra = " palletes almacenados";
             } else if (selectedOption === "Cantidad de incidencias") {
               extra = " incidencias reportadas";
             } else {

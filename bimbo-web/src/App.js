@@ -16,10 +16,10 @@ function App() {
   ]);
 
   const [locations, ] = useState([
-    ["Pasillo AA", "Pasillo AB", "Pasillo AC", "Pasillo AD", "Pasillo AE", "Pasillo AF"],
-    ["Pasillo AG", "Pasillo AH", "Pasillo AI", "Pasillo AJ", "Pasillo AK", "Pasillo AL"],
-    ["Pasillo AM", "Pasillo AN", "Pasillo AO", "Pasillo AP", "Pasillo AQ", "Pasillo AR"],
-    ["Pasillo AS", "Pasillo AT", "Pasillo AU", "Pasillo AV", "Pasillo AW", "Pasillo AX"],
+    ["Pasillo A1", "Pasillo B1", "Pasillo C1", "Pasillo D1", "Pasillo E1", "Pasillo F1"],
+    ["Pasillo A2", "Pasillo B2", "Pasillo C2", "Pasillo D2", "Pasillo E2", "Pasillo F2"],
+    ["Pasillo A3", "Pasillo B3", "Pasillo C3", "Pasillo D3", "Pasillo E3", "Pasillo F3"],
+    ["Pasillo A4", "Pasillo B4", "Pasillo C4", "Pasillo D4", "Pasillo E4", "Pasillo F4"],
   ]);
 
   const [info, setInfo] = useState([
