@@ -29,9 +29,10 @@ const Mapa = () => {
   return (
     <div className="container">
       <div className="stats">
-        <div className="texto" style={{marginTop: "20px"}}>
+        <div className="texto" style={{margin: "20px"}}>
           <h2>Estadícticos</h2>
         </div>
+        <div style={{overflow: "auto"}}>
         <div className="area2">
           <div className="grafico">
             <Bar
@@ -144,6 +145,7 @@ const Mapa = () => {
                 ],
               }}/>
           </div>
+        </div>
         </div>
       </div>
       <div className="mapa">
