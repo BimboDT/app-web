@@ -1,16 +1,16 @@
-import "../styles/Almacen.css";
+import "../styles/ReservaSmall.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
 import { Link } from "react-router-dom";
 
-const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack }) => {
+const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack }) => {
   const Componente =
     selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
 
   return (
-    <div className="almacen">
+    <div className="reserva">
       {almacenValues.map((values, colIndex) => (
-        <div className="columna" key={colIndex}>
+        <div className="fila" key={colIndex}>
           {values.map((value, index) => {
             const location = locations[colIndex][index];
             let extra = '';
@@ -24,16 +24,17 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
             }
 
             return (
-              <div style={{width: "100%", maxWidth: "200px", margin: "5px"}} key={`${colIndex}-${index}`}>
+                <div>
+              <div style={{display:"flex" , justifyContent: "space-between", width:"8rem"}} key={`${colIndex}-${index}`}>
                 <Link
                   to="/rack"
                   onMouseEnter={() => setSelectedRack(info[colIndex][index] + extra)}
-                  onMouseLeave={() => setIsHovered(false)
-                  }
+                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  <Componente value={value} setIsHovered={setIsHovered} />
+                  <Componente value={value} setIsHovered={setIsHovered} origin={"Small"} />
                 </Link>
-                <div className="ubicacion"> {location} </div>
+              </div>
+              <div className="ubicacion"> {location} </div>
               </div>
             );
           })}
@@ -43,4 +44,4 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
   );
 };
 
-export default Almacen;
+export default ReservaSmall;

@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/Rack.css";
 import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from 'react-router-dom';

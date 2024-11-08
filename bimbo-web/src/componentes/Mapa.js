@@ -22,8 +22,12 @@ ChartJS.Chart.register(
 const Mapa = () => {
   const navigate = useNavigate();
 
-  const handleSectionClick = () => {
+  const AlmacenClick = () => {
     navigate("/almacen");
+  };
+
+  const ReservaSmallClick = () => {
+    navigate("/reservaSmall");
   };
 
   return (
@@ -153,16 +157,16 @@ const Mapa = () => {
           <h2>Mapa del Almacén</h2>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img1" onClick={() => handleSectionClick()}> Outbound </div>
-          <div className="seccion seccionSmall img1" onClick={() => handleSectionClick()}> Picking </div>
+          <div className="seccion seccionBig img1" onClick={() => AlmacenClick()}> Outbound </div>
+          <div className="seccion seccionSmall img1" onClick={() => AlmacenClick()}> Picking </div>
         </div>
         <div className="area">
-          <div className="seccion seccionSmall img2" onClick={() => handleSectionClick()}> Reserva 1 </div>
-          <div className="seccion seccionBig img2" onClick={() => handleSectionClick()}> Reserva 2 </div>
+          <div className="seccion seccionSmall img2" onClick={() => ReservaSmallClick()}> Reserva 1 </div>
+          <div className="seccion seccionBig img2" onClick={() => ReservaSmallClick()}> Reserva 2 </div>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img3" onClick={() => handleSectionClick()}> Packing </div>
-          <div className="seccion seccionSmall img4" onClick={() => handleSectionClick()}> Inbound </div>
+          <div className="seccion seccionBig img3" onClick={() => AlmacenClick()}> Packing </div>
+          <div className="seccion seccionSmall img4" onClick={() => AlmacenClick()}> Inbound </div>
         </div>
       </div>
     </div>

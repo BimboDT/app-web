@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, Link} from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import Almacen from "./componentes/Almacen";
+import ReservaSmall from "./componentes/ReservaSmall";
 import Filtro from "./componentes/Filtro";
 import Rack from "./componentes/Rack";
 import Mapa from "./componentes/Mapa";
@@ -15,11 +16,21 @@ function App() {
     [0, 5, 6, 3, 1, 8],
   ]);
 
-  const [locations, ] = useState([
+  const [almacenLocations, ] = useState([
     ["Pasillo A1", "Pasillo B1", "Pasillo C1", "Pasillo D1", "Pasillo E1", "Pasillo F1"],
     ["Pasillo A2", "Pasillo B2", "Pasillo C2", "Pasillo D2", "Pasillo E2", "Pasillo F2"],
     ["Pasillo A3", "Pasillo B3", "Pasillo C3", "Pasillo D3", "Pasillo E3", "Pasillo F3"],
     ["Pasillo A4", "Pasillo B4", "Pasillo C4", "Pasillo D4", "Pasillo E4", "Pasillo F4"],
+  ]);
+
+  const [reservaSvalues, setReservaSvalues] = useState([
+    [6, 4, 6, 8, 1, 1],
+    [3, 8, 7, 8, 7, 5],
+  ]);
+
+  const [reservaSlocations, ] = useState([
+    ["Pasillo A1", "Pasillo B1", "Pasillo C1", "Pasillo D1", "Pasillo E1", "Pasillo F1"],
+    ["Pasillo A2", "Pasillo B2", "Pasillo C2", "Pasillo D2", "Pasillo E2", "Pasillo F2"],
   ]);
 
   const [info, setInfo] = useState([
@@ -124,7 +135,39 @@ function App() {
                   almacenValues={almacenValues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
-                  locations={locations}
+                  locations={almacenLocations}
+                  info={info}
+                  setSelectedRack={setSelectedRack}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/reservaSmall"
+            element={
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Link to="/mapa" className="btn-back-almacen">
+                    <IoIosArrowBack size={34} />
+                  </Link>
+                  <Filtro
+                    updateAlmacenValues={updateAlmacenValues}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                  />
+                  <Informacion visible={isHovered} />
+                </div>
+                <ReservaSmall
+                  almacenValues={reservaSvalues}
+                  selectedOption={selectedOption}
+                  setIsHovered={setIsHovered}
+                  locations={reservaSlocations}
                   info={info}
                   setSelectedRack={setSelectedRack}
                 />
