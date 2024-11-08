@@ -13,7 +13,7 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
         <div className="fila" key={colIndex}>
           {values.map((value, index) => {
             const location = locations[colIndex][index];
-            let extra = '';
+            let extra = "";
 
             if (selectedOption === "Cantidad de producto en racks") {
               extra = " palletes almacenados";
@@ -24,17 +24,29 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
             }
 
             return (
-                <div>
-              <div style={{display:"flex" , justifyContent: "space-between", width:"8rem"}} key={`${colIndex}-${index}`}>
-                <Link
-                  to="/rack"
-                  onMouseEnter={() => setSelectedRack(info[colIndex][index] + extra)}
-                  onMouseLeave={() => setIsHovered(false)}
+              <div style={{marginRight: "4rem"}} key={`${colIndex}-${index}`}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                  key={`${colIndex}-${index}`}
                 >
-                  <Componente value={value} setIsHovered={setIsHovered} origin={"Small"} />
-                </Link>
-              </div>
-              <div className="ubicacion"> {location} </div>
+                  <Link
+                    to="/rack"
+                    onMouseEnter={() =>
+                      setSelectedRack(info[colIndex][index] + extra)
+                    }
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <Componente
+                      value={value}
+                      setIsHovered={setIsHovered}
+                      origin={"Small"}
+                    />
+                  </Link>
+                </div>
+                <div className="ubicacion"> {location} </div>
               </div>
             );
           })}
