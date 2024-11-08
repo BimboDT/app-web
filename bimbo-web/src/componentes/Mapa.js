@@ -30,6 +30,10 @@ const Mapa = () => {
     navigate("/reservaSmall");
   };
 
+  const ReservaBigClick = () => {
+    navigate("/reservaBig");
+  };
+
   return (
     <div className="container">
       <div className="stats">
@@ -161,7 +165,7 @@ const Mapa = () => {
           <div className="seccion seccionSmall img1" onClick={() => AlmacenClick()}> Picking </div>
         </div>
         <div className="area">
-          <div className="seccion seccionSmall img2" onClick={() => ReservaSmallClick()}> Reserva 1 </div>
+          <div className="seccion seccionSmall img2" onClick={() => ReservaBigClick()}> Reserva 1 </div>
           <div className="seccion seccionBig img2" onClick={() => ReservaSmallClick()}> Reserva 2 </div>
         </div>
         <div className="area">

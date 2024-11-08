@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Link} from "react-rou
 import { IoIosArrowBack } from "react-icons/io";
 import Almacen from "./componentes/Almacen";
 import ReservaSmall from "./componentes/ReservaSmall";
+import ReservaBig from "./componentes/ReservaBig";
 import Filtro from "./componentes/Filtro";
 import Rack from "./componentes/Rack";
 import Mapa from "./componentes/Mapa";
@@ -17,10 +18,10 @@ function App() {
   ]);
 
   const [almacenLocations, ] = useState([
-    ["Pasillo A1", "Pasillo B1", "Pasillo C1", "Pasillo D1", "Pasillo E1", "Pasillo F1"],
-    ["Pasillo A2", "Pasillo B2", "Pasillo C2", "Pasillo D2", "Pasillo E2", "Pasillo F2"],
-    ["Pasillo A3", "Pasillo B3", "Pasillo C3", "Pasillo D3", "Pasillo E3", "Pasillo F3"],
-    ["Pasillo A4", "Pasillo B4", "Pasillo C4", "Pasillo D4", "Pasillo E4", "Pasillo F4"],
+    ["Pasillo P1", "Pasillo Q1", "Pasillo R1", "Pasillo S1", "Pasillo T1", "Pasillo U1"],
+    ["Pasillo P2", "Pasillo Q2", "Pasillo R2", "Pasillo S2", "Pasillo T2", "Pasillo U2"],
+    ["Pasillo P3", "Pasillo Q3", "Pasillo R3", "Pasillo S3", "Pasillo T3", "Pasillo U3"],
+    ["Pasillo P4", "Pasillo Q4", "Pasillo R4", "Pasillo S4", "Pasillo T4", "Pasillo U4"],
   ]);
 
   const [almacenInfo, setAlmacenInfo] = useState([
@@ -43,6 +44,21 @@ function App() {
   const [reservaSinfo, setReservaSinfo] = useState([
     [6156, 4341, 6827, 8789, 1043, 1925],
     [3152, 8945, 7371, 8283, 7427, 5710],
+  ]);
+
+  const [reservaBvalues, setReservaBvalues] = useState([
+    [4, 8, 2],
+    [6, 3, 1],
+  ]);
+
+  const [reservaBlocations, ] = useState([
+    [],
+    ["Rack M", "Rack N", "Rack O"],
+  ]);
+
+  const [reservaBinfo, setReservaBinfo] = useState([
+    [4315, 8501, 2894],
+    [6241, 3710, 1926],
   ]);
 
   const [selectedOption, setSelectedOption] = useState("Cantidad de producto en racks");
@@ -137,6 +153,43 @@ function App() {
     }
   };
 
+  const updateReservaBValues = (selection) => {
+    switch (selection) {
+      case "Cantidad de producto en racks":
+        setReservaBvalues([
+          [4, 8, 2],
+          [6, 3, 1],
+        ]);
+        setReservaBinfo([
+          [4315, 8501, 2894],
+          [6241, 3710, 1926],
+        ]);
+        break;
+      case "Cantidad de incidencias":
+        setReservaBvalues([
+          [1, 2, 0],
+          [8, 0, 0],
+        ]);
+        setReservaBinfo([
+          [2, 5, 0],
+          [20, 0, 0],
+        ]);
+        break;
+      case "Porcentaje de conteo realizado":
+        setReservaBvalues([
+          [4, 8, 1],
+          [8, 6, 2],
+        ]);
+        setReservaBinfo([
+          [50, 100, 13],
+          [100, 75, 25],
+        ]);
+        break;
+      default:
+        break;
+    }
+  };
+
   const Informacion = ({ visible }) => {
     return visible && (
       <div className="info">En este rack hay {selectedRack}</div>
@@ -211,6 +264,38 @@ function App() {
                   setIsHovered={setIsHovered}
                   locations={reservaSlocations}
                   info={reservaSinfo}
+                  setSelectedRack={setSelectedRack}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/reservaBig"
+            element={
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Link to="/mapa" className="btn-back-almacen">
+                    <IoIosArrowBack size={34} />
+                  </Link>
+                  <Filtro
+                    updateAlmacenValues={updateReservaBValues}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                  />
+                  <Informacion visible={isHovered} />
+                </div>
+                <ReservaBig
+                  almacenValues={reservaBvalues}
+                  selectedOption={selectedOption}
+                  setIsHovered={setIsHovered}
+                  locations={reservaBlocations}
+                  info={reservaBinfo}
                   setSelectedRack={setSelectedRack}
                 />
               </>
