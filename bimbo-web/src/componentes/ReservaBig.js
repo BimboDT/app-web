@@ -1,11 +1,13 @@
 import "../styles/ReservaBig.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack }) => {
   const Componente =
     selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
+
+  const loc = useLocation();
 
   return (
     <div className="reserva">
@@ -34,6 +36,7 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
                 >
                   <Link
                     to="/rack"
+                    state={{ from: loc }}
                     onMouseEnter={() =>
                       setSelectedRack(info[colIndex][index] + extra)
                     }

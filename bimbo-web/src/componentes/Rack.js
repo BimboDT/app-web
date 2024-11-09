@@ -1,11 +1,13 @@
 import "../styles/Rack.css";
 import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Info from "./Info";
 import DateTimeFilter from "./Fecha";
 
 const Rack = () => {
+    const location = useLocation();
+    const previousRoute = location.state?.from || "/mapa";
 
     const [showInfo, setShowInfo] = useState(false);
 
@@ -20,7 +22,7 @@ const Rack = () => {
     return (
         <div className="contenedor">
             <div style={{margin: "10px"}}>
-                <Link to="/almacen" className='btn-back'>
+                <Link to={previousRoute} className='btn-back'>
                     <IoIosArrowBack size={34} />
                 </Link>
                 <DateTimeFilter/>
