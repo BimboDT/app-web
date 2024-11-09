@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/Rack.css";
 import React, { useState } from 'react';
 
 function Fecha() {

@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/Info.css";
 import gansito from "../img/gansito.png";
 
 const Info = ({ onClose }) => {

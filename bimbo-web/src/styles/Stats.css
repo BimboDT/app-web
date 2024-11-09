@@ -1,0 +1,169 @@
+.cuadrado {
+    background-color: rgba(116, 111, 111, 0.8);
+    height: 8.5vh;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuadrado:hover {
+    background-color: rgba(111, 228, 227, 0.8);
+    box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.circulo {
+    background-color: #FFFFFF;
+    height: 7vh;
+    width: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.barra-gris {
+    background-color: rgba(201, 208, 199, 0.8);
+    height: 35px;
+    width: 18px;
+    margin: 2px;
+}
+
+.barra-verde {
+    background-color: rgba(83, 207, 52, 0.8);
+    height: 35px;
+    width: 18px;
+    margin: 2px;
+}
+
+.barra-amarilla {
+    background-color: rgba(207, 201, 52, 0.8);
+    height: 35px;
+    width: 18px;
+    margin: 2px;
+}
+
+.barra-roja {
+    background-color: rgba(207, 61, 52, 0.8);
+    height: 35px;
+    width: 18px;
+    margin: 2px;
+}
+
+.cuadradoSmall {
+    background-color: rgba(116, 111, 111, 0.8);
+    height: 30vh;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuadradoSmall:hover {
+    background-color: rgba(111, 228, 227, 0.8);
+    box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.circuloSmall {
+    background-color: #FFFFFF;
+    height: 28.5vh;
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.barra-grisSmall {
+    background-color: rgba(201, 208, 199, 0.8);
+    height: 20px;
+    width: 50px;
+    margin: 2px;
+}
+
+.barra-verdeSmall {
+    background-color: rgba(83, 207, 52, 0.8);
+    height: 20px;
+    width: 50px;
+    margin: 2px;
+}
+
+.barra-amarillaSmall {
+    background-color: rgba(207, 201, 52, 0.8);
+    height: 20px;
+    width: 50px;
+    margin: 2px;
+}
+
+.barra-rojaSmall {
+    background-color: rgba(207, 61, 52, 0.8);
+    height: 20px;
+    width: 50px;
+    margin: 2px;
+}
+
+.cuadradoBig {
+    background-color: rgba(116, 111, 111, 0.8);
+    height: 30vh;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuadradoBig:hover {
+    background-color: rgba(111, 228, 227, 0.8);
+    box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.circuloBig {
+    background-color: #FFFFFF;
+    height: 28.5vh;
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.barra-grisBig {
+    background-color: rgba(201, 208, 199, 0.8);
+    height: 20px;
+    width: 110px;
+    margin: 2px;
+}
+
+.barra-verdeBig {
+    background-color: rgba(83, 207, 52, 0.8);
+    height: 20px;
+    width: 110px;
+    margin: 2px;
+}
+
+.barra-amarillaBig {
+    background-color: rgba(207, 201, 52, 0.8);
+    height: 20px;
+    width: 110px;
+    margin: 2px;
+}
+
+.barra-rojaBig {
+    background-color: rgba(207, 61, 52, 0.8);
+    height: 20px;
+    width: 110px;
+    margin: 2px;
+}

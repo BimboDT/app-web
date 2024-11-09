@@ -22,16 +22,25 @@ ChartJS.Chart.register(
 const Mapa = () => {
   const navigate = useNavigate();
 
-  const handleSectionClick = () => {
+  const AlmacenClick = () => {
     navigate("/almacen");
+  };
+
+  const ReservaSmallClick = () => {
+    navigate("/reservaSmall");
+  };
+
+  const ReservaBigClick = () => {
+    navigate("/reservaBig");
   };
 
   return (
     <div className="container">
       <div className="stats">
-        <div className="texto" style={{marginTop: "20px"}}>
+        <div className="texto" style={{margin: "20px"}}>
           <h2>Estadícticos</h2>
         </div>
+        <div style={{overflow: "auto"}}>
         <div className="area2">
           <div className="grafico">
             <Bar
@@ -145,22 +154,23 @@ const Mapa = () => {
               }}/>
           </div>
         </div>
+        </div>
       </div>
       <div className="mapa">
         <div className="texto" style={{marginBottom: "20px"}}>
           <h2>Mapa del Almacén</h2>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img1" onClick={() => handleSectionClick()}> Outbound </div>
-          <div className="seccion seccionSmall img1" onClick={() => handleSectionClick()}> Picking </div>
+          <div className="seccion seccionBig img1" onClick={() => AlmacenClick()}> Outbound </div>
+          <div className="seccion seccionSmall img1" onClick={() => AlmacenClick()}> Picking </div>
         </div>
         <div className="area">
-          <div className="seccion seccionSmall img2" onClick={() => handleSectionClick()}> Reserva 1 </div>
-          <div className="seccion seccionBig img2" onClick={() => handleSectionClick()}> Reserva 2 </div>
+          <div className="seccion seccionSmall img2" onClick={() => ReservaBigClick()}> Reserva 1 </div>
+          <div className="seccion seccionBig img2" onClick={() => ReservaSmallClick()}> Reserva 2 </div>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img3" onClick={() => handleSectionClick()}> Packing </div>
-          <div className="seccion seccionSmall img4" onClick={() => handleSectionClick()}> Inbound </div>
+          <div className="seccion seccionBig img3" onClick={() => AlmacenClick()}> Packing </div>
+          <div className="seccion seccionSmall img4" onClick={() => AlmacenClick()}> Inbound </div>
         </div>
       </div>
     </div>

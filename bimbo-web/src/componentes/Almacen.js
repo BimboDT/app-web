@@ -1,11 +1,13 @@
-import "../styles/App.css";
+import "../styles/Almacen.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack }) => {
   const Componente =
     selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
+
+  const loc = useLocation();
 
   return (
     <div className="almacen">
@@ -27,6 +29,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
               <div style={{width: "100%", maxWidth: "200px", margin: "5px"}} key={`${colIndex}-${index}`}>
                 <Link
                   to="/rack"
+                  state={{ from: loc }}
                   onMouseEnter={() => setSelectedRack(info[colIndex][index] + extra)}
                   onMouseLeave={() => setIsHovered(false)
                   }
