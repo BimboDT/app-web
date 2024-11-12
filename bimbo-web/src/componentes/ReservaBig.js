@@ -35,7 +35,7 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
                   key={`${colIndex}-${index}`}
                 >
                   <Link
-                    to="/rack"
+                    to="/rack2"
                     state={{ from: loc }}
                     onMouseEnter={() =>
                       setSelectedRack(info[colIndex][index] + extra)

@@ -67,14 +67,33 @@
     margin: 0 10px;
     margin-bottom: -30px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja2 {
+    width: 180px;
+    height: 120px;
+    background: linear-gradient(180deg, #d5b26c, #a99f9f);
+    margin: 0 10px;
+    margin-bottom: -30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .etiqueta {
     width: 100px;
     height: 80px;
     background: radial-gradient(circle, #ffffff, #afaaaa);
-    margin-top: 35px;
-    margin-left: 40px;
+}
+
+.etiqueta2 {
+    width: 100px;
+    height: 70px;
+    background: radial-gradient(circle, #ffffff, #afaaaa);
 }
 
 .btn-back{
@@ -96,16 +115,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 850px;
+    width: 70rem;
+    font-size: 18px;
 }
 
 .boton{
     cursor: pointer;
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: fit-content;
+    width: 4.5rem;
     display: flex;
     justify-content: center;
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.1);
-    font-size: 15px;
+    font-size: 18px;
 }

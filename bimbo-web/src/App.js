@@ -7,6 +7,7 @@ import ReservaSmall from "./componentes/ReservaSmall";
 import ReservaBig from "./componentes/ReservaBig";
 import Filtro from "./componentes/Filtro";
 import Rack from "./componentes/Rack";
+import Rack2 from "./componentes/Rack2";
 import Mapa from "./componentes/Mapa";
 
 function App() {
@@ -302,6 +303,7 @@ function App() {
             }
           />
           <Route path="/rack" element={<Rack />} />
+          <Route path="/rack2" element={<Rack2 />} />
         </Routes>
       </div>
     </Router>
