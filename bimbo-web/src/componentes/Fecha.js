@@ -1,10 +1,22 @@
 import "../styles/Rack.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 
 function Fecha() {
   const [date, setDate] = useState('');
   const [hour, setHour] = useState('');
   const [depth, setDepth] = useState('');
+  const [depthOptions, setDepthOptions] = useState([]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/rack') {
+      setDepthOptions(Array.from({ length: 7 }, (_, i) => i + 1));  // Longitud 7
+    } else if (location.pathname === '/rack2') {
+      setDepthOptions(Array.from({ length: 22 }, (_, i) => i + 1));  // Longitud 22
+    }
+  }, [location.pathname]);
 
   const hours = Array.from({ length: 24 }, (_, i) => {
     const hour = i.toString().padStart(2, '0') + ':00';
@@ -41,6 +53,7 @@ function Fecha() {
           id="dateFilter"
           value={date}
           onChange={handleDateChange}
+          style={{ fontSize: "15px"}}
         />
       </div>
       <div>
@@ -49,6 +62,7 @@ function Fecha() {
           id="hourFilter"
           value={hour}
           onChange={handleHourChange}
+          style={{ fontSize: "15px"}}
         >
           <option value="">Selecciona una hora:</option>
           {hours.map((hour) => (
@@ -64,18 +78,19 @@ function Fecha() {
           id="depthFilter"
           value={depth}
           onChange={handleDepthChange}
+          style={{ fontSize: "15px"}}
         >
           <option value="">Selecciona una profundidad:</option>
-          {Array.from({ length: 7 }, (_, i) => i + 1).map((depth) => (
+          {depthOptions.map((depth) => (
             <option key={depth} value={depth}>
               {depth}
             </option>
           ))}
         </select>
       </div>
-      <button className="boton" onClick={handleFilter}>
+      <div className="boton" onClick={handleFilter}>
         Filtrar
-      </button>
+      </div>
     </div>
   );
 }

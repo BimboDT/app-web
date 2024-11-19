@@ -38,7 +38,7 @@ const Mapa = () => {
     <div className="container">
       <div className="stats">
         <div className="texto" style={{margin: "20px"}}>
-          <h2>Estadícticos</h2>
+          <h2>Estadísticos</h2>
         </div>
         <div style={{overflow: "auto"}}>
         <div className="area2">
