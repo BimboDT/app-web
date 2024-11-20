@@ -1,13 +1,68 @@
 import "../styles/ReservaBig.css";
 import Porcentaje from "./Porcentaje";
 import Incidencias from "./Incidencias";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack }) => {
-  const Componente =
-    selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
-
+const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack, selectedLocation, onFetchData }) => {
+  const Componente = selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
   const loc = useLocation();
+
+  useEffect(() => {
+    // const fecha = new Date();
+    const fecha = "2024-10-10T00:00:00.000Z";
+    const api = process.env.REACT_APP_API_URL;
+    const ubi = selectedLocation;
+    console.log("UBICACION:", ubi);
+
+    const filter1 = `http://${api}/conteo/numeroRacks/${ubi}/${fecha}`;
+    const filter2 = `http://${api}/conteo/numeroIncidencias/${ubi}/${fecha}`;
+    const filter3 = `http://${api}/conteo/numeroConteos/${ubi}/${fecha}`;
+
+    const fetchData = async () => {
+      try {
+        // const [data1, data2, data3] = await Promise.all([
+        //   fetch(filter1).then((res) => {
+        //     if (!res.ok) throw new Error("Error en filter1");
+        //     return res.json();
+        //   }),
+        //   fetch(filter2).then((res) => {
+        //     if (!res.ok) throw new Error("Error en filter2");
+        //     return res.json();
+        //   }),
+        //   fetch(filter3).then((res) => {
+        //     if (!res.ok) throw new Error("Error en filter3");
+        //     return res.json();
+        //   }),
+        // ]);
+
+        // console.log("DATA FILTRO 1:", data1);
+        // console.log("DATA FILTRO 2:", data2);
+        // console.log("DATA FILTRO 3:", data3);
+
+        const data1 = {
+          values: [[4, 8, 2], [6, 3, 1]],
+          info: [[4315, 8501, 2894], [6241, 3710, 1926]]
+        };
+
+        const data2 = {
+          values: [[1, 2, 0], [8, 0, 0]],
+          info: [[2, 5, 0], [20, 0, 0]]
+        };
+
+        const data3 = {
+          values: [[4, 8, 1], [8, 6, 2]],
+          info: [[50, 100, 13], [100, 75, 25]]
+        };
+
+        onFetchData(data1, data2, data3);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [selectedLocation]);
 
   return (
     <div className="reserva">

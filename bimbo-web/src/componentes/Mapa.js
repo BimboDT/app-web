@@ -19,18 +19,21 @@ ChartJS.Chart.register(
   ChartJS.LineController   // para controlar los gráficos de líneas
 );
 
-const Mapa = () => {
+const Mapa = ({ setSelectedLocation }) => {
   const navigate = useNavigate();
 
-  const AlmacenClick = () => {
+  const AlmacenClick = (location) => {
+    setSelectedLocation(location);
     navigate("/almacen");
   };
 
   const ReservaSmallClick = () => {
+    setSelectedLocation("Reserva2");
     navigate("/reservaSmall");
   };
 
   const ReservaBigClick = () => {
+    setSelectedLocation("Reserva1");
     navigate("/reservaBig");
   };
 
@@ -161,16 +164,16 @@ const Mapa = () => {
           <h2>Mapa del Almacén</h2>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img1" onClick={() => AlmacenClick()}> Outbound </div>
-          <div className="seccion seccionSmall img1" onClick={() => AlmacenClick()}> Picking </div>
+          <div className="seccion seccionBig img1" onClick={() => AlmacenClick('Outbound')}> Outbound </div>
+          <div className="seccion seccionSmall img1" onClick={() => AlmacenClick('Picking')}> Picking </div>
         </div>
         <div className="area">
           <div className="seccion seccionSmall img2" onClick={() => ReservaBigClick()}> Reserva 1 </div>
           <div className="seccion seccionBig img2" onClick={() => ReservaSmallClick()}> Reserva 2 </div>
         </div>
         <div className="area">
-          <div className="seccion seccionBig img3" onClick={() => AlmacenClick()}> Packing </div>
-          <div className="seccion seccionSmall img4" onClick={() => AlmacenClick()}> Inbound </div>
+          <div className="seccion seccionBig img3" onClick={() => AlmacenClick('Packing')}> Packing </div>
+          <div className="seccion seccionSmall img4" onClick={() => AlmacenClick('Inbound')}> Inbound </div>
         </div>
       </div>
     </div>
