@@ -11,7 +11,7 @@ import Rack2 from "./componentes/Rack2";
 import Mapa from "./componentes/Mapa";
 
 function App() {
-  // const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(false);
   const [alm1, setAlm1] = useState(null);
   const [alm2, setAlm2] = useState(null);
   const [alm3, setAlm3] = useState(null);
@@ -150,9 +150,18 @@ function App() {
     );
   };
 
+  // const LoadingPopup = () => (
+  //   <div className="loading-popup">
+  //     <div className="loading-message">
+  //       <p>Loading...</p>
+  //     </div>
+  //   </div>
+  // );
+
   return (
     <Router>
       <div className="App">
+        {/* {loading && <LoadingPopup />} */}
         <Routes>
           <Route path="/" element={<Navigate to="/mapa" />} />
           <Route

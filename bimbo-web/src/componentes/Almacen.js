@@ -9,8 +9,14 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
   const loc = useLocation();
 
   useEffect(() => {
-    // const fecha = new Date();
-    const fecha = "2024-10-10T00:00:00.000Z";
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log("FECHA:", formattedDate);
+
+    const fecha = "2024-10-10";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
     console.log("UBICACION:", ubi);
@@ -20,6 +26,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
     const filter3 = `http://${api}/conteo/numeroConteos/${ubi}/${fecha}`;
 
     const fetchData = async () => {
+      // setLoading(true);
       try {
         // const [data1, data2, data3] = await Promise.all([
         //   fetch(filter1).then((res) => {
@@ -60,6 +67,9 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
       } catch (error) {
         console.error('Error fetching data:', error);
       }
+      // finally {
+      //   setLoading(false);
+      // }
     };
     fetchData();
   }, [selectedLocation]);

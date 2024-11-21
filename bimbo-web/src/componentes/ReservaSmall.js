@@ -9,7 +9,13 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
   const loc = useLocation();
 
   useEffect(() => {
-    // const fecha = new Date();
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log("FECHA:", formattedDate);
+    
     const fecha = "2024-10-10T00:00:00.000Z";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
