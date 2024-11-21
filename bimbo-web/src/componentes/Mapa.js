@@ -1,5 +1,6 @@
 import "../styles/Mapa.css";
 import React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bar, Bubble, Doughnut, Line } from "react-chartjs-2";
 import * as ChartJS from 'chart.js';
@@ -37,6 +38,57 @@ const Mapa = ({ setSelectedLocation }) => {
     navigate("/reservaBig");
   };
 
+  const [infoG1, setInfoG1] = useState({labels: [], data: []});
+  const [infoG2, setInfoG2] = useState({productStored:0, capacity:0});
+
+  useEffect(() => {
+    const date = new Date();
+    const year = date.getFullYear();
+
+    const api = process.env.REACT_APP_API_URL;
+
+    const graph1 = `http://${api}/conteo/top10Productos`;
+    const graph2 = `http://${api}/conteo/porcentajeAlmacen`;
+    const graph3 = `http://${api}/conteo/incidenciasPorMes/${year}`;
+    const graph4 = `http://${api}/conteo/productoMasDiscrepancia`;
+
+    const fetchData = async () => {
+      try {
+        const [response1, response2] = await Promise.all([
+          fetch(graph1),
+          fetch(graph2),
+        ]);
+
+        if (!response1.ok) {
+          throw new Error('Error en graph1');
+        }
+        if (!response2.ok) {
+          throw new Error('Error en graph2');
+        }
+
+        const dataG1 = await response1.json();
+        const dataG2 = await response2.json();
+
+        const labelsG1 = dataG1.map((item) => item.nombreProducto);
+        const quantity = dataG1.map((item) => item.totalCajasFisico);
+        setInfoG1({ labels: labelsG1, data: quantity });
+
+        const stored = dataG2.ocupacionActual;
+        const capacity = dataG2.capacidadTotal;
+        setInfoG2({ productStored: stored, capacity: capacity - stored });
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("INFO G1 actualizado:", infoG1);
+    console.log("INFO G2 actualizado:", infoG2);
+  }, [infoG1]);
+
   return (
     <div className="container">
       <div className="stats">
@@ -45,56 +97,74 @@ const Mapa = ({ setSelectedLocation }) => {
         </div>
         <div style={{overflow: "auto"}}>
         <div className="area2">
-          <div className="grafico">
+          <div className="grafico grafico2">
             <Bar
               data={{
-                labels: ["Enero", "Febrero", "Marzo"],
+                labels: infoG1.labels,
                 datasets: [
                   {
-                    label: "Revenue",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    borderColor: "rgba(75, 192, 192, 1)",
+                    label: "Cantidad de producto",
+                    data: infoG1.data,
+                    backgroundColor: "rgba(255, 165, 0, 0.2)",
+                    borderColor: 'rgba(255, 165, 0, 1)',
                     borderWidth: 1,
-                  },
-                  {
-                    label: "Loss",
-                    data: [2, 3, 1, 0, 5, 2],
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    borderWidth: 1,
-                  },
+                  }
                 ],
-              }}/>
+              }}
+              options={{
+                indexAxis: 'y',
+                responsive : true,
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Top 10 Productos con mayor cantidad en almacen'
+                  },
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      display: false,
+                    }
+                  }
+                },
+                aspectRatio: 1,
+              }}
+            />
           </div>
           <div className="grafico">
             <Doughnut
               data={{
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                labels: ["Espacio libre en almacen ", "Espacio ocupado en almacen"],
                 datasets: [
                   {
-                    label: "Revenue",
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [infoG2.capacity, infoG2.productStored],
                     backgroundColor: [
-                      'rgba(75, 192, 192, 0.6)',
+                      'rgba(26, 188, 192, 0.55)',
                       'rgba(255, 99, 132, 0.6)',
-                      'rgba(255, 159, 64, 0.6)',
-                      'rgba(153, 102, 255, 0.6)',
-                      'rgba(54, 162, 235, 0.6)',
-                      'rgba(255, 215, 0, 0.6)'
                     ],
                     borderColor: [
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(255, 159, 64, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 215, 0, 1)'
+                      'rgba(26, 188, 192, 1)',
+                      'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1,
                   },
                 ],
-              }}/>
+              }}
+              options = {{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Porcentaje de almacen ocupado'
+                  },
+                  legend: {
+                    display: false,
+                  }
+                }
+              }}
+            />
           </div>
         </div>
         <div className="area2">
@@ -118,7 +188,8 @@ const Mapa = ({ setSelectedLocation }) => {
                     borderWidth: 1,
                   },
                 ],
-              }}/>
+              }}
+            />
           </div>
           <div className="grafico">
             <Bubble
