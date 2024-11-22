@@ -1,27 +1,23 @@
 import "../styles/Info.css";
-import gansito from "../img/gansito.png";
+// import gansito from "../img/gansito.png";
 
-const Info = ({ onClose }) => {
+const Info = ({ onClose, sku, nombre, categoria, descripcion, normaEstiba, piezasXCaja, imagenUrl }) => {
     return (
         <div className="info-popup">
             <div className="info-content">
                 <div className="img-producto">
-                    <img src={gansito} alt="Gansito" />
+                    <img src={imagenUrl} alt="producto" />
                 </div>
                 <div className="info-producto">
                     <div className="titulo-producto">
-                        <p><span className="datos-producto">Producto:</span> Gansito Bimbo</p>
-                        <p><span className="datos-producto">Categoría:</span> Pan Dulce</p>
-                        <p><span className="datos-producto">Presentación:</span> Empaque Individual de 40 g (12 unidades por caja)</p>
-                        <p><span className="datos-producto">Código de artículo:</span> 12345678</p>
-                        <p><span className="datos-producto">Descripción de artículo:</span> PAN 40G</p>
-                        <p><span className="datos-producto">Fecha de vencimiento:</span> 31/12/2024</p>
+                        <p><span className="datos-producto">SKU:</span> {sku}</p>
+                        <p><span className="datos-producto">Producto:</span> {nombre}</p>
+                        <p><span className="datos-producto">Categoría:</span> {categoria}</p>
+                        <p><span className="datos-producto">Descripción:</span> {descripcion}</p>
                     </div>
                     <div className="cantidad-producto">
-                        <p><span className="cantidad-productos">-Cantidad original:</span> 110</p>
-                        <p><span className="cantidad-productos">-Cantidad:</span> 110</p>
-                        <p><span className="cantidad-productos">-Cantidad ajustada:</span> 0</p>
-                        <p><span className="cantidad-productos">-Fecha de modificación:</span> 30/09/2024 04:51</p>
+                        <p><span className="cantidad-productos">-Norma Estiba:</span> {normaEstiba}</p>
+                        <p><span className="cantidad-productos">-Piezas por caja:</span> {piezasXCaja}</p>
                     </div>
                 </div>
                 <button onClick={onClose} className="close-btn">Cerrar</button>

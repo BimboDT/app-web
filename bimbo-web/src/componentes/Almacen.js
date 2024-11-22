@@ -4,7 +4,7 @@ import Incidencias from "./Incidencias";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack, selectedLocation, onFetchData }) => {
+const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack, selectedLocation, onFetchData, setRack }) => {
   const Componente = selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
   const loc = useLocation();
 
@@ -67,9 +67,6 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-      // finally {
-      //   setLoading(false);
-      // }
     };
     fetchData();
   }, [selectedLocation]);
@@ -96,8 +93,8 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
                   to="/rack"
                   state={{ from: loc }}
                   onMouseEnter={() => setSelectedRack(info[colIndex][index] + extra)}
-                  onMouseLeave={() => setIsHovered(false)
-                  }
+                  onMouseLeave={() => setIsHovered(false)}
+                  onClick={() => setRack(location)}
                 >
                   <Componente value={value} setIsHovered={setIsHovered} />
                 </Link>

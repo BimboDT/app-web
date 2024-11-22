@@ -11,7 +11,6 @@ import Rack2 from "./componentes/Rack2";
 import Mapa from "./componentes/Mapa";
 
 function App() {
-  // const [loading, setLoading] = useState(false);
   const [alm1, setAlm1] = useState(null);
   const [alm2, setAlm2] = useState(null);
   const [alm3, setAlm3] = useState(null);
@@ -42,8 +41,9 @@ function App() {
 
   const [selectedOption, setSelectedOption] = useState("Cantidad de producto en racks");
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedRack, setSelectedRack] = useState(null);
+  const [selectedRackInfo, setSelectedRackInfo] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [rack, setRack] = useState(null);
 
   const [almacenValues, setAlmacenValues] = useState([]);
   const [almacenInfo, setAlmacenInfo] = useState([]);
@@ -146,22 +146,13 @@ function App() {
 
   const Informacion = ({ visible }) => {
     return visible && (
-      <div className="info">En este rack hay {selectedRack}</div>
+      <div className="info">En este rack hay {selectedRackInfo}</div>
     );
   };
-
-  // const LoadingPopup = () => (
-  //   <div className="loading-popup">
-  //     <div className="loading-message">
-  //       <p>Loading...</p>
-  //     </div>
-  //   </div>
-  // );
 
   return (
     <Router>
       <div className="App">
-        {/* {loading && <LoadingPopup />} */}
         <Routes>
           <Route path="/" element={<Navigate to="/mapa" />} />
           <Route
@@ -195,9 +186,10 @@ function App() {
                   setIsHovered={setIsHovered}
                   locations={almacenLocations}
                   info={almacenInfo}
-                  setSelectedRack={setSelectedRack}
+                  setSelectedRack={setSelectedRackInfo}
                   selectedLocation={selectedLocation}
                   onFetchData={AlmacenDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
@@ -229,9 +221,10 @@ function App() {
                   setIsHovered={setIsHovered}
                   locations={reservaSlocations}
                   info={reservaSinfo}
-                  setSelectedRack={setSelectedRack}
+                  setSelectedRack={setSelectedRackInfo}
                   selectedLocation={selectedLocation}
                   onFetchData={SmallDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
@@ -263,15 +256,16 @@ function App() {
                   setIsHovered={setIsHovered}
                   locations={reservaBlocations}
                   info={reservaBinfo}
-                  setSelectedRack={setSelectedRack}
+                  setSelectedRack={setSelectedRackInfo}
                   selectedLocation={selectedLocation}
                   onFetchData={BigDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
           />
-          <Route path="/rack" element={<Rack />} />
-          <Route path="/rack2" element={<Rack2 />} />
+          <Route path="/rack" element={<Rack selectedRack={rack}/>} />
+          <Route path="/rack2" element={<Rack2 selectedRack={rack}/>} />
         </Routes>
       </div>
     </Router>

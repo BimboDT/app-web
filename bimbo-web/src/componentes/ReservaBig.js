@@ -4,7 +4,7 @@ import Incidencias from "./Incidencias";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack, selectedLocation, onFetchData }) => {
+const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, info, setSelectedRack, selectedLocation, onFetchData, setRack }) => {
   const Componente = selectedOption === "Cantidad de incidencias" ? Incidencias : Porcentaje;
   const loc = useLocation();
 
@@ -15,8 +15,8 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
     const day = String(date.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
     console.log("FECHA:", formattedDate);
-    
-    const fecha = "2024-10-10T00:00:00.000Z";
+
+    const fecha = "2024-10-10";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
     console.log("UBICACION:", ubi);
@@ -98,10 +98,9 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
                   <Link
                     to="/rack2"
                     state={{ from: loc }}
-                    onMouseEnter={() =>
-                      setSelectedRack(info[colIndex][index] + extra)
-                    }
+                    onMouseEnter={() => setSelectedRack(info[colIndex][index] + extra)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => setRack(location)}
                   >
                     <Componente
                       value={value}

@@ -2,7 +2,7 @@ import "../styles/Mapa.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bar, Bubble, Doughnut, Line } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import * as ChartJS from 'chart.js';
 
 ChartJS.Chart.register(
@@ -40,6 +40,8 @@ const Mapa = ({ setSelectedLocation }) => {
 
   const [infoG1, setInfoG1] = useState({labels: [], data: []});
   const [infoG2, setInfoG2] = useState({productStored:0, capacity:0});
+  const [infoG3, setInfoG3] = useState({labels: [], data: []});
+  const [infoG4, setInfoG4] = useState({labels: [], data: []});
 
   useEffect(() => {
     const date = new Date();
@@ -50,13 +52,15 @@ const Mapa = ({ setSelectedLocation }) => {
     const graph1 = `http://${api}/conteo/top10Productos`;
     const graph2 = `http://${api}/conteo/porcentajeAlmacen`;
     const graph3 = `http://${api}/conteo/incidenciasPorMes/${year}`;
-    const graph4 = `http://${api}/conteo/productoMasDiscrepancia`;
+    const graph4 = `http://${api}/conteo/productosMasDiscrepancia`;
 
     const fetchData = async () => {
       try {
-        const [response1, response2] = await Promise.all([
+        const [response1, response2, response3, response4] = await Promise.all([
           fetch(graph1),
           fetch(graph2),
+          fetch(graph3),
+          fetch(graph4)
         ]);
 
         if (!response1.ok) {
@@ -65,9 +69,17 @@ const Mapa = ({ setSelectedLocation }) => {
         if (!response2.ok) {
           throw new Error('Error en graph2');
         }
+        if (!response3.ok) {
+          throw new Error('Error en graph3');
+        }
+        if (!response4.ok) {
+          throw new Error('Error en graph4');
+        }
 
         const dataG1 = await response1.json();
         const dataG2 = await response2.json();
+        const dataG3 = await response3.json();
+        const dataG4 = await response4.json();
 
         const labelsG1 = dataG1.map((item) => item.nombreProducto);
         const quantity = dataG1.map((item) => item.totalCajasFisico);
@@ -77,17 +89,20 @@ const Mapa = ({ setSelectedLocation }) => {
         const capacity = dataG2.capacidadTotal;
         setInfoG2({ productStored: stored, capacity: capacity - stored });
 
+        const meses = Object.keys(dataG3);
+        const valores = Object.values(dataG3);
+        setInfoG3({ labels: meses, data: valores });
+
+        const labelsG4 = dataG4.map((item) => item.nombreProducto);
+        const cant = dataG4.map((item) => item.totalDiscrepancia);
+        setInfoG4({ labels: labelsG4, data: cant });
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("INFO G1 actualizado:", infoG1);
-    console.log("INFO G2 actualizado:", infoG2);
-  }, [infoG1]);
 
   return (
     <div className="container">
@@ -97,7 +112,7 @@ const Mapa = ({ setSelectedLocation }) => {
         </div>
         <div style={{overflow: "auto"}}>
         <div className="area2">
-          <div className="grafico grafico2">
+          <div className="grafico">
             <Bar
               data={{
                 labels: infoG1.labels,
@@ -113,20 +128,19 @@ const Mapa = ({ setSelectedLocation }) => {
               }}
               options={{
                 indexAxis: 'y',
-                responsive : true,
                 plugins: {
                   title: {
                     display: true,
                     text: 'Top 10 Productos con mayor cantidad en almacen'
                   },
                   legend: {
-                    display: false
+                    display: false,
                   }
                 },
                 scales: {
                   y: {
                     ticks: {
-                      display: false,
+                      display: true,
                     }
                   }
                 },
@@ -160,7 +174,7 @@ const Mapa = ({ setSelectedLocation }) => {
                     text: 'Porcentaje de almacen ocupado'
                   },
                   legend: {
-                    display: false,
+                    display: true,
                   }
                 }
               }}
@@ -169,63 +183,74 @@ const Mapa = ({ setSelectedLocation }) => {
         </div>
         <div className="area2">
           <div className="grafico">
-            <Line
+          <Line
               data={{
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                labels: infoG3.labels,
                 datasets: [
                   {
-                    label: "Revenue",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: "rgba(5, 5, 210, 0.2)",
-                    borderColor: "rgba(5, 5, 210, 1)",
+                    label: "Incidencias",
+                    data: infoG3.data,
+                    backgroundColor: "rgba(200, 162, 255, 0.6)",
+                    borderColor: "rgba(128, 0, 128, 1)",
                     borderWidth: 1,
-                  },
-                  {
-                    label: "Loss",
-                    data: [2, 3, 1, 0, 5, 2],
-                    backgroundColor: "rgba(180, 109, 10, 0.5)",
-                    borderColor: "rgba(180, 109, 10, 1)",
-                    borderWidth: 1,
-                  },
+                  }
                 ],
+              }}
+              options = {{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Número de incidencias en el año'
+                  },
+                  legend: {
+                    display: false,
+                  }
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      display: false,
+                    }
+                  }
+                },
+                aspectRatio: 1,
               }}
             />
           </div>
           <div className="grafico">
-            <Bubble
+            <Bar
               data={{
-                labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                labels: infoG4.labels,
                 datasets: [
                   {
-                    label: "Revenue",
-                    data: [
-                      { x: 10, y: 12, r: 10 },
-                      { x: 20, y: 19, r: 12 },
-                      { x: 30, y: 3, r: 6 },
-                      { x: 40, y: 5, r: 8 },
-                      { x: 50, y: 2, r: 7 },
-                      { x: 60, y: 3, r: 5 },
-                    ],
-                    backgroundColor: "rgba(46, 204, 113, 0.2)",
-                    borderColor: "rgba(46, 204, 113, 1)",
+                    label: "Cantidad de producto",
+                    data: infoG4.data,
+                    backgroundColor: "rgba(100, 255, 0, 0.6)",
+                    borderColor: 'rgba(50, 205, 50, 1)',
                     borderWidth: 1,
-                  },
-                  {
-                    label: "Loss",
-                    data: [
-                      { x: 15, y: 2, r: 6 },
-                      { x: 25, y: 3, r: 5 },
-                      { x: 35, y: 1, r: 4 },
-                      { x: 45, y: 0, r: 3 },
-                      { x: 55, y: 5, r: 6 },
-                      { x: 65, y: 2, r: 7 },
-                    ],
-                    backgroundColor: "rgba(26, 188, 156, 0.5)",
-                    borderColor: "rgba(26, 188, 156, 1)",
-                    borderWidth: 1,
-                  },
+                  }
                 ],
-              }}/>
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Top 10 Productos con más incidencias en almacen'
+                  },
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      display: false,
+                    }
+                  }
+                },
+                aspectRatio: 1,
+              }}
+            />
           </div>
         </div>
         </div>

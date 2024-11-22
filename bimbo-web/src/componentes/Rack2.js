@@ -1,22 +1,86 @@
 import "../styles/Rack.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation } from 'react-router-dom';
 import Info from "./Info";
 import DateTimeFilter from "./Fecha";
 
-const Rack2 = () => {
+const Rack2 = ({selectedRack}) => {
     const location = useLocation();
     const previousRoute = location.state?.from || "/mapa";
 
     const [showInfo, setShowInfo] = useState(false);
+    const [productos, setProductos] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const handleBoxClick = () => {
+    const handleBoxClick = (index) => {
+        setSelectedProduct(productos[index]);
         setShowInfo(true);
     };
 
     const handleCloseInfo = () => {
         setShowInfo(false);
+        setSelectedProduct(null);
+    };
+
+    useEffect(() => {
+        const api = process.env.REACT_APP_API_URL;
+        // const rack = selectedRack.split(" ")[1];
+        const rack = "F";
+        console.log("RACK:", rack);
+
+        const informacion = `http://${api}/imagen/obtenDescProd/${rack}`;
+
+        const fetchData = async () => {
+          try {
+            const response = await fetch(informacion);
+            if (!response.ok) {
+              throw new Error('Error en información');
+            }
+
+            const data = await response.json();
+            console.log("DATA:", data);
+            setProductos(data);
+
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+    }, []);
+
+    let productoIndex = 0;
+    const renderCajas = () => {
+        const elementos = [];
+
+        for (let i = 0; i < 4; i++) {
+            elementos.push(<div className="estante" key={`estante-${i}`} />);
+
+            const cajas = (
+                <div className="cajas" key={`cajas-${i}`}>
+                    {Array.from({ length: 6 }).map((_, index) => {
+                        if (productoIndex < productos.length) {
+                            const currentIndex = productoIndex;
+                            productoIndex++;
+                            return (
+                                <div className="caja2" key={`caja2-${i}-${index}`} onClick={() => handleBoxClick(currentIndex)}>
+                                    <div className="etiqueta2" />
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div className="caja2" key={`caja2-${i}-${index}`}>
+                                    <div className="etiqueta2" />
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
+            );
+
+            elementos.push(cajas);
+        }
+        return elementos;
     };
 
     return (
@@ -33,45 +97,20 @@ const Rack2 = () => {
                 <div className='col'></div>
                 <div className='col'></div>
             </div>
-            <div className='estante'/>
-            <div className = 'cajas'>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-            </div>
-            <div className='estante'/>
-            <div className = 'cajas'>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-            </div>
-            <div className='estante'/>
-            <div className = 'cajas'>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-            </div>
-            <div className='estante'/>
-            <div className = 'cajas'>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-                <div className ='caja2' onClick={handleBoxClick}><div className='etiqueta2'></div></div>
-            </div>
-            <div className='estante'>
-            </div>
-            {showInfo && <Info onClose={handleCloseInfo} />}
+            {renderCajas()}
+            <div className='estante' />
+            {showInfo && selectedProduct && (
+                <Info
+                    onClose={handleCloseInfo}
+                    sku={selectedProduct.SKU}
+                    nombre={selectedProduct.Nombre}
+                    categoria={selectedProduct.Categoria}
+                    descripcion={selectedProduct.Descripcion}
+                    normaEstiba={selectedProduct.NormaEstiba}
+                    piezasXCaja={selectedProduct.PiezasXCaja}
+                    imagenUrl={selectedProduct.ImagenUrl}
+                />
+            )}
             </div>
         </div>
     );
