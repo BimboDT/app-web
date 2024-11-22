@@ -47,18 +47,18 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
         // console.log("DATA FILTRO 3:", data3);
 
         const data1 = {
-          values: [[4, 8, 2], [6, 3, 1]],
-          info: [[4315, 8501, 2894], [6241, 3710, 1926]]
+          values: [[4, 8, 2]],
+          info: [[4315, 8501, 2894]]
         };
 
         const data2 = {
-          values: [[1, 2, 0], [8, 0, 0]],
-          info: [[2, 5, 0], [20, 0, 0]]
+          values: [[1, 2, 0]],
+          info: [[2, 5, 0]]
         };
 
         const data3 = {
-          values: [[4, 8, 1], [8, 6, 2]],
-          info: [[50, 100, 13], [100, 75, 25]]
+          values: [[8, 6, 2]],
+          info: [[100, 75, 25]]
         };
 
         onFetchData(data1, data2, data3);

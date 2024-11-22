@@ -64,7 +64,7 @@ function App() {
     ["Rack L", "Rack K", "Rack J", "Rack I", "Rack H", "Rack G"],
   ]);
 
-  const [reservaBlocations, ] = useState([[], ["Rack M", "Rack N", "Rack O"]]);
+  const [reservaBlocations, ] = useState([["Rack M", "Rack N", "Rack O"]]);
 
   useEffect(() => {
     if (alm1) {
