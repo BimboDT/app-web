@@ -9,14 +9,13 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
   const loc = useLocation();
 
   useEffect(() => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    console.log("FECHA:", formattedDate);
+    // const date = new Date();
+    // const year = date.getFullYear();
+    // const month = String(date.getMonth() + 1).padStart(2, '0');
+    // const day = String(date.getDate()).padStart(2, '0');
+    // const formattedDate = `${year}-${month}-${day}`;
 
-    const fecha = "2024-10-10";
+    const fecha = "2024-10-01";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
     console.log("UBICACION:", ubi);
@@ -27,41 +26,71 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
 
     const fetchData = async () => {
       try {
-        // const [data1, data2, data3] = await Promise.all([
-        //   fetch(filter1).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter1");
-        //     return res.json();
-        //   }),
-        //   fetch(filter2).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter2");
-        //     return res.json();
-        //   }),
-        //   fetch(filter3).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter3");
-        //     return res.json();
-        //   }),
-        // ]);
+        const [data1, data2, data3] = await Promise.all([
+          fetch(filter1).then((res) => {
+            if (!res.ok) throw new Error("Error en filter1");
+            return res.json();
+          }),
+          fetch(filter2).then((res) => {
+            if (!res.ok) throw new Error("Error en filter2");
+            return res.json();
+          }),
+          fetch(filter3).then((res) => {
+            if (!res.ok) throw new Error("Error en filter3");
+            return res.json();
+          }),
+        ]);
 
-        // console.log("DATA FILTRO 1:", data1);
-        // console.log("DATA FILTRO 2:", data2);
-        // console.log("DATA FILTRO 3:", data3);
+        const values1 = [[], []];
+        const info1 = [[], []];
 
-        const data1 = {
-          values: [[6, 4, 6, 8, 1, 1], [3, 8, 7, 8, 7, 5]],
-          info: [[6156, 4341, 6827, 8789, 1043, 1925], [3152, 8945, 7371, 8283, 7427, 5710]]
+        data1.forEach((item, index) => {
+          const completeness = parseInt(item.Completeness);
+          const sumaTotal = parseInt(item.SumaTotal);
+          // Determinar a qué grupo pertenece el rack
+          const groupIndex = index < 6 ? 0 : 1;
+
+          values1[groupIndex].push(completeness);
+          info1[groupIndex].push(sumaTotal);
+        });
+
+        console.log("DATA FILTRO 2:", data2);
+        // const values2 = data2.map(item => parseInt(item.Incidencias));
+        // const info2 = data2.map(item => parseInt(item.Incidencias));
+
+        const values3 = [[], []];
+        const info3 = [[], []];
+        data3.forEach((item, index) => {
+          const cycleCountCompleteness = parseInt(item.CycleCountCompleteness);
+          const completedCountings = parseInt(item.CompletedCountings);
+          const totalPositions = parseInt(item.TotalPositions);
+          // Calcular el porcentaje
+          const completenessPercentage = ((completedCountings / totalPositions) * 100).toFixed(2);
+          // Determinar a qué grupo pertenece el rack
+          const groupIndex = index < 6 ? 0 : 1;
+
+          values3[groupIndex].push(cycleCountCompleteness);
+          info3[groupIndex].push(completenessPercentage);
+        });
+
+        const resp1 = {
+          values: values1,
+          info: info1
         };
 
-        const data2 = {
+        const resp2 = {
           values: [[2, 3, 1, 0, 5, 2], [4, 1, 2, 6, 3, 5]],
           info: [[5, 7, 2, 0, 12, 5], [10, 3, 5, 15, 8, 13]]
+          // values: [values2],
+          // info: [info2]
         };
 
-        const data3 = {
-          values: [[7, 8, 5, 0, 8, 8], [8, 6, 8, 2, 6, 7]],
-          info: [[97, 100, 62, 0, 100, 100], [100, 75, 100, 25, 75, 88]]
+        const resp3 = {
+          values: values3,
+          info: info3
         };
 
-        onFetchData(data1, data2, data3);
+        onFetchData(resp1, resp2, resp3);
 
       } catch (error) {
         console.error('Error fetching data:', error);

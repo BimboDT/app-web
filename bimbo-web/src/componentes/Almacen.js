@@ -16,7 +16,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
     const formattedDate = `${year}-${month}-${day}`;
     console.log("FECHA:", formattedDate);
 
-    const fecha = "2024-10-10";
+    const fecha = "2024-10-01";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
     console.log("UBICACION:", ubi);
@@ -26,7 +26,6 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
     const filter3 = `http://${api}/conteo/numeroConteos/${ubi}/${fecha}`;
 
     const fetchData = async () => {
-      // setLoading(true);
       try {
         // const [data1, data2, data3] = await Promise.all([
         //   fetch(filter1).then((res) => {

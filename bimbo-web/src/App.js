@@ -61,7 +61,7 @@ function App() {
 
   const [reservaSlocations, ] = useState([
     ["Rack A", "Rack B", "Rack C", "Rack D", "Rack E", "Rack F"],
-    ["Rack L", "Rack K", "Rack J", "Rack I", "Rack H", "Rack G"],
+    ["Rack G", "Rack H", "Rack I", "Rack J", "Rack K", "Rack L"],
   ]);
 
   const [reservaBlocations, ] = useState([["Rack M", "Rack N", "Rack O"]]);

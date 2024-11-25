@@ -9,14 +9,13 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
   const loc = useLocation();
 
   useEffect(() => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    console.log("FECHA:", formattedDate);
+    // const date = new Date();
+    // const year = date.getFullYear();
+    // const month = String(date.getMonth() + 1).padStart(2, '0');
+    // const day = String(date.getDate()).padStart(2, '0');
+    // const formattedDate = `${year}-${month}-${day}`;
 
-    const fecha = "2024-10-10";
+    const fecha = "2024-10-01";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
     console.log("UBICACION:", ubi);
@@ -27,41 +26,54 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
 
     const fetchData = async () => {
       try {
-        // const [data1, data2, data3] = await Promise.all([
-        //   fetch(filter1).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter1");
-        //     return res.json();
-        //   }),
-        //   fetch(filter2).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter2");
-        //     return res.json();
-        //   }),
-        //   fetch(filter3).then((res) => {
-        //     if (!res.ok) throw new Error("Error en filter3");
-        //     return res.json();
-        //   }),
-        // ]);
+        const [data1, data2, data3] = await Promise.all([
+          fetch(filter1).then((res) => {
+            if (!res.ok) throw new Error("Error en filter1");
+            return res.json();
+          }),
+          fetch(filter2).then((res) => {
+            if (!res.ok) throw new Error("Error en filter2");
+            return res.json();
+          }),
+          fetch(filter3).then((res) => {
+            if (!res.ok) throw new Error("Error en filter3");
+            return res.json();
+          }),
+        ]);
 
-        // console.log("DATA FILTRO 1:", data1);
-        // console.log("DATA FILTRO 2:", data2);
-        // console.log("DATA FILTRO 3:", data3);
+        const values1 = data1.map(item => parseInt(item.Completeness));
+        const info1 = data1.map(item => parseInt(item.SumaTotal));
 
-        const data1 = {
-          values: [[4, 8, 2]],
-          info: [[4315, 8501, 2894]]
+        console.log("DATA FILTRO 2:", data2);
+        // const values2 = data2.map(item => parseInt(item.Incidencias));
+        // const info2 = data2.map(item => parseInt(item.Incidencias));
+
+        const values3 = data3.map(item => parseInt(item.CycleCountCompleteness));
+        const info3 = data3.map(item => {
+          const completedCountings = parseInt(item.CompletedCountings);
+          const totalPositions = parseInt(item.TotalPositions);
+          // Calculamos el porcentaje
+          return ((completedCountings / totalPositions) * 100).toFixed(2);
+        });
+
+        const resp1 = {
+          values: [values1],
+          info: [info1]
         };
 
-        const data2 = {
+        const resp2 = {
           values: [[1, 2, 0]],
           info: [[2, 5, 0]]
+          // values: [values2],
+          // info: [info2]
         };
 
-        const data3 = {
-          values: [[8, 6, 2]],
-          info: [[100, 75, 25]]
+        const resp3 = {
+          values: [values3],
+          info: [info3]
         };
 
-        onFetchData(data1, data2, data3);
+        onFetchData(resp1, resp2, resp3);
 
       } catch (error) {
         console.error('Error fetching data:', error);
