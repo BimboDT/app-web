@@ -25,8 +25,7 @@ const Rack = ({selectedRack}) => {
 
     useEffect(() => {
         const api = process.env.REACT_APP_API_URL;
-        // const rack = selectedRack.split(" ")[1];
-        const rack = "F";
+        const rack = selectedRack.split(" ")[1];
         console.log("RACK:", rack);
 
         const informacion = `http://${api}/imagen/obtenDescProd/${rack}`;
