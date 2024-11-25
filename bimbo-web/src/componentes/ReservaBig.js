@@ -9,16 +9,16 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
   const loc = useLocation();
 
   useEffect(() => {
+    // Se implemento para usar la fecha actual pero por falta de datos solo se simuló
     // const date = new Date();
     // const year = date.getFullYear();
     // const month = String(date.getMonth() + 1).padStart(2, '0');
     // const day = String(date.getDate()).padStart(2, '0');
-    // const formattedDate = `${year}-${month}-${day}`;
+    // const fecha = `${year}-${month}-${day}`;
 
     const fecha = "2024-10-01";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
-    console.log("UBICACION:", ubi);
 
     const filter1 = `http://${api}/conteo/numeroRacks/${ubi}/${fecha}`;
     const filter2 = `http://${api}/conteo/numeroIncidencias/${ubi}/${fecha}`;
@@ -44,9 +44,8 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
         const values1 = data1.map(item => parseInt(item.Completeness));
         const info1 = data1.map(item => parseInt(item.SumaTotal));
 
-        console.log("DATA FILTRO 2:", data2);
-        // const values2 = data2.map(item => parseInt(item.Incidencias));
-        // const info2 = data2.map(item => parseInt(item.Incidencias));
+        const values2 = data2.map(item => parseInt(item.Incidencias));
+        const info2 = data2.map(item => parseInt(item.Incidencias));
 
         const values3 = data3.map(item => parseInt(item.CycleCountCompleteness));
         const info3 = data3.map(item => {
@@ -62,10 +61,8 @@ const ReservaBig = ({ almacenValues, selectedOption, setIsHovered, locations, in
         };
 
         const resp2 = {
-          values: [[1, 2, 0]],
-          info: [[2, 5, 0]]
-          // values: [values2],
-          // info: [info2]
+          values: [values2],
+          info: [info2]
         };
 
         const resp3 = {

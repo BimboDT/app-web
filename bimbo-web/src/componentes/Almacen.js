@@ -14,7 +14,7 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
     // const year = date.getFullYear();
     // const month = String(date.getMonth() + 1).padStart(2, '0');
     // const day = String(date.getDate()).padStart(2, '0');
-    // const formattedDate = `${year}-${month}-${day}`;
+    // const fecha = `${year}-${month}-${day}`;
 
     // const api = process.env.REACT_APP_API_URL;
     // const ubi = selectedLocation;
@@ -39,10 +39,6 @@ const Almacen = ({ almacenValues, selectedOption, setIsHovered, locations, info,
         //     return res.json();
         //   }),
         // ]);
-
-        // console.log("DATA FILTRO 1:", data1);
-        // console.log("DATA FILTRO 2:", data2);
-        // console.log("DATA FILTRO 3:", data3);
 
         const resp1 = {
           values: [[6, 4, 6, 8, 1, 1], [3, 8, 7, 8, 7, 5], [3, 4, 0, 8, 2, 2],[0, 5, 6, 3, 1, 8]],

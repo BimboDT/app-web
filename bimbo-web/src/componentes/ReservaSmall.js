@@ -9,16 +9,16 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
   const loc = useLocation();
 
   useEffect(() => {
+    // Se implemento para usar la fecha actual pero por falta de datos solo se simuló
     // const date = new Date();
     // const year = date.getFullYear();
     // const month = String(date.getMonth() + 1).padStart(2, '0');
     // const day = String(date.getDate()).padStart(2, '0');
-    // const formattedDate = `${year}-${month}-${day}`;
+    // const fecha = `${year}-${month}-${day}`;
 
     const fecha = "2024-10-01";
     const api = process.env.REACT_APP_API_URL;
     const ubi = selectedLocation;
-    console.log("UBICACION:", ubi);
 
     const filter1 = `http://${api}/conteo/numeroRacks/${ubi}/${fecha}`;
     const filter2 = `http://${api}/conteo/numeroIncidencias/${ubi}/${fecha}`;
@@ -43,7 +43,6 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
 
         const values1 = [[], []];
         const info1 = [[], []];
-
         data1.forEach((item, index) => {
           const completeness = parseInt(item.Completeness);
           const sumaTotal = parseInt(item.SumaTotal);
@@ -54,9 +53,16 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
           info1[groupIndex].push(sumaTotal);
         });
 
-        console.log("DATA FILTRO 2:", data2);
-        // const values2 = data2.map(item => parseInt(item.Incidencias));
-        // const info2 = data2.map(item => parseInt(item.Incidencias));
+        const values2 = [[], []];
+        const info2 = [[], []];
+        data2.forEach((item, index) => {
+          const incidencias = parseInt(item.Incidencias);
+          // Determinar a qué grupo pertenece el rack
+          const groupIndex = index < 6 ? 0 : 1;
+
+          values2[groupIndex].push(incidencias);
+          info2[groupIndex].push(incidencias);
+        });
 
         const values3 = [[], []];
         const info3 = [[], []];
@@ -79,10 +85,8 @@ const ReservaSmall = ({ almacenValues, selectedOption, setIsHovered, locations, 
         };
 
         const resp2 = {
-          values: [[2, 3, 1, 0, 5, 2], [4, 1, 2, 6, 3, 5]],
-          info: [[5, 7, 2, 0, 12, 5], [10, 3, 5, 15, 8, 13]]
-          // values: [values2],
-          // info: [info2]
+          values: values2,
+          info: info2
         };
 
         const resp3 = {
