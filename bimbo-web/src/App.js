@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, Link} from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import Almacen from "./componentes/Almacen";
@@ -9,225 +9,155 @@ import Filtro from "./componentes/Filtro";
 import Rack from "./componentes/Rack";
 import Rack2 from "./componentes/Rack2";
 import Mapa from "./componentes/Mapa";
-import Data from "./componentes/Data";
 
 function App() {
-  const [almacenData, setAlmacenData] = useState({
-    almacenValues: [],
-    almacenLocations: [],
-    almacenInfo: [],
-    reservaSvalues: [],
-    reservaSlocations: [],
-    reservaSinfo: [],
-    reservaBvalues: [],
-    reservaBlocations: [],
-    reservaBinfo: [],
-  });
+  const [alm1, setAlm1] = useState(null);
+  const [alm2, setAlm2] = useState(null);
+  const [alm3, setAlm3] = useState(null);
+  const [small1, setSmall1] = useState(null);
+  const [small2, setSmall2] = useState(null);
+  const [small3, setSmall3] = useState(null);
+  const [big1, setBig1] = useState(null);
+  const [big2, setBig2] = useState(null);
+  const [big3, setBig3] = useState(null);
 
-  const [updateMethods, setUpdateMethods] = useState({
-    updateAlmacenValues: () => {},
-    updateReservaSValues: () => {},
-    updateReservaBValues: () => {},
-  });
+  const AlmacenDataFetch = (fetchedData1, fetchedData2, fetchedData3) => {
+    setAlm1(fetchedData1);
+    setAlm2(fetchedData2);
+    setAlm3(fetchedData3);
+  };
 
-  // const [almacenValues, setAlmacenValues] = useState([
-  //   [6, 4, 6, 8, 1, 1],
-  //   [3, 8, 7, 8, 7, 5],
-  //   [3, 4, 0, 8, 2, 2],
-  //   [0, 5, 6, 3, 1, 8],
-  // ]);
+  const SmallDataFetch = (fetchedData1, fetchedData2, fetchedData3) => {
+    setSmall1(fetchedData1);
+    setSmall2(fetchedData2);
+    setSmall3(fetchedData3);
+  };
 
-  // const [almacenLocations, ] = useState([
-  //   ["Pasillo P1", "Pasillo Q1", "Pasillo R1", "Pasillo S1", "Pasillo T1", "Pasillo U1"],
-  //   ["Pasillo P2", "Pasillo Q2", "Pasillo R2", "Pasillo S2", "Pasillo T2", "Pasillo U2"],
-  //   ["Pasillo P3", "Pasillo Q3", "Pasillo R3", "Pasillo S3", "Pasillo T3", "Pasillo U3"],
-  //   ["Pasillo P4", "Pasillo Q4", "Pasillo R4", "Pasillo S4", "Pasillo T4", "Pasillo U4"],
-  // ]);
-
-  // const [almacenInfo, setAlmacenInfo] = useState([
-  //   [6156, 4341, 6827, 8789, 1043, 1925],
-  //   [3152, 8945, 7371, 8283, 7427, 5710],
-  //   [3982, 4315, 220, 8501, 2894, 2120],
-  //   [500, 5798, 6241, 3710, 1926, 8031],
-  // ]);
-
-  // const [reservaSvalues, setReservaSvalues] = useState([
-  //   [6, 4, 6, 8, 1, 1],
-  //   [3, 8, 7, 8, 7, 5],
-  // ]);
-
-  // const [reservaSlocations, ] = useState([
-  //   ["Rack A", "Rack B", "Rack C", "Rack D", "Rack E", "Rack F"],
-  //   ["Rack L", "Rack K", "Rack J", "Rack I", "Rack H", "Rack G"],
-  // ]);
-
-  // const [reservaSinfo, setReservaSinfo] = useState([
-  //   [6156, 4341, 6827, 8789, 1043, 1925],
-  //   [3152, 8945, 7371, 8283, 7427, 5710],
-  // ]);
-
-  // const [reservaBvalues, setReservaBvalues] = useState([
-  //   [4, 8, 2],
-  //   [6, 3, 1],
-  // ]);
-
-  // const [reservaBlocations, ] = useState([
-  //   [],
-  //   ["Rack M", "Rack N", "Rack O"],
-  // ]);
-
-  // const [reservaBinfo, setReservaBinfo] = useState([
-  //   [4315, 8501, 2894],
-  //   [6241, 3710, 1926],
-  // ]);
-
-  // const updateAlmacenValues = (selection) => {
-  //   switch (selection) {
-  //     case "Cantidad de producto en racks":
-  //       setAlmacenValues([
-  //         [6, 4, 6, 8, 1, 1],
-  //         [3, 8, 7, 8, 7, 5],
-  //         [3, 4, 0, 8, 2, 2],
-  //         [0, 5, 6, 3, 1, 8],
-  //       ]);
-  //       setAlmacenInfo([
-  //         [6156, 4341, 6827, 8789, 1043, 1925],
-  //         [3152, 8945, 7371, 8283, 7427, 5710],
-  //         [3982, 4315, 220, 8501, 2894, 2120],
-  //         [500, 5798, 6241, 3710, 1926, 8031],
-  //       ]);
-  //       break;
-  //     case "Cantidad de incidencias":
-  //       setAlmacenValues([
-  //         [2, 3, 1, 0, 5, 2],
-  //         [4, 1, 2, 6, 3, 5],
-  //         [1, 2, 0, 3, 2, 1],
-  //         [8, 0, 0, 1, 0, 7],
-  //       ]);
-  //       setAlmacenInfo([
-  //         [5, 7, 2, 0, 12, 5],
-  //         [10, 3, 5, 15, 8, 13],
-  //         [2, 5, 0, 8, 5, 2],
-  //         [20, 0, 0, 3, 0, 17],
-  //       ]);
-  //       break;
-  //     case "Porcentaje de conteo realizado":
-  //       setAlmacenValues([
-  //         [7, 8, 5, 0, 8, 8],
-  //         [8, 6, 8, 2, 6, 7],
-  //         [0, 3, 8, 4, 8, 1],
-  //         [8, 3, 5, 8, 6, 2],
-  //       ]);
-  //       setAlmacenInfo([
-  //         [97, 100, 62, 0, 100, 100],
-  //         [100, 75, 100, 25, 75, 88],
-  //         [0, 38, 100, 50, 100, 13],
-  //         [100, 37, 63, 100, 75, 25],
-  //       ]);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const updateReservaSValues = (selection) => {
-  //   switch (selection) {
-  //     case "Cantidad de producto en racks":
-  //       setReservaSvalues([
-  //         [6, 4, 6, 8, 1, 1],
-  //         [3, 8, 7, 8, 7, 5],
-  //       ]);
-  //       setReservaSinfo([
-  //         [6156, 4341, 6827, 8789, 1043, 1925],
-  //         [3152, 8945, 7371, 8283, 7427, 5710],
-  //       ]);
-  //       break;
-  //     case "Cantidad de incidencias":
-  //       setReservaSvalues([
-  //         [2, 3, 1, 0, 5, 2],
-  //         [4, 1, 2, 6, 3, 5],
-  //       ]);
-  //       setReservaSinfo([
-  //         [5, 7, 2, 0, 12, 5],
-  //         [10, 3, 5, 15, 8, 13],
-  //       ]);
-  //       break;
-  //     case "Porcentaje de conteo realizado":
-  //       setReservaSvalues([
-  //         [7, 8, 5, 0, 8, 8],
-  //         [8, 6, 8, 2, 6, 7],
-  //       ]);
-  //       setReservaSinfo([
-  //         [97, 100, 62, 0, 100, 100],
-  //         [100, 75, 100, 25, 75, 88],
-  //       ]);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const updateReservaBValues = (selection) => {
-  //   switch (selection) {
-  //     case "Cantidad de producto en racks":
-  //       setReservaBvalues([
-  //         [4, 8, 2],
-  //         [6, 3, 1],
-  //       ]);
-  //       setReservaBinfo([
-  //         [4315, 8501, 2894],
-  //         [6241, 3710, 1926],
-  //       ]);
-  //       break;
-  //     case "Cantidad de incidencias":
-  //       setReservaBvalues([
-  //         [1, 2, 0],
-  //         [8, 0, 0],
-  //       ]);
-  //       setReservaBinfo([
-  //         [2, 5, 0],
-  //         [20, 0, 0],
-  //       ]);
-  //       break;
-  //     case "Porcentaje de conteo realizado":
-  //       setReservaBvalues([
-  //         [4, 8, 1],
-  //         [8, 6, 2],
-  //       ]);
-  //       setReservaBinfo([
-  //         [50, 100, 13],
-  //         [100, 75, 25],
-  //       ]);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+  const BigDataFetch = (fetchedData1, fetchedData2, fetchedData3) => {
+    setBig1(fetchedData1);
+    setBig2(fetchedData2);
+    setBig3(fetchedData3);
+  };
 
   const [selectedOption, setSelectedOption] = useState("Cantidad de producto en racks");
-
   const [isHovered, setIsHovered] = useState(false);
+  const [selectedRackInfo, setSelectedRackInfo] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [rack, setRack] = useState(null);
 
-  const [selectedRack, setSelectedRack] = useState(null);
+  const [almacenValues, setAlmacenValues] = useState([]);
+  const [almacenInfo, setAlmacenInfo] = useState([]);
+  const [reservaSvalues, setReservaSvalues] = useState([]);
+  const [reservaSinfo, setReservaSinfo] = useState([]);
+  const [reservaBvalues, setReservaBvalues] = useState([]);
+  const [reservaBinfo, setReservaBinfo] = useState([]);
+
+  const [almacenLocations, ] = useState([
+    ["Pasillo P1", "Pasillo Q1", "Pasillo R1", "Pasillo S1", "Pasillo T1", "Pasillo U1"],
+    ["Pasillo P2", "Pasillo Q2", "Pasillo R2", "Pasillo S2", "Pasillo T2", "Pasillo U2"],
+    ["Pasillo P3", "Pasillo Q3", "Pasillo R3", "Pasillo S3", "Pasillo T3", "Pasillo U3"],
+    ["Pasillo P4", "Pasillo Q4", "Pasillo R4", "Pasillo S4", "Pasillo T4", "Pasillo U4"],
+  ]);
+
+  const [reservaSlocations, ] = useState([
+    ["Rack A", "Rack B", "Rack C", "Rack D", "Rack E", "Rack F"],
+    ["Rack G", "Rack H", "Rack I", "Rack J", "Rack K", "Rack L"],
+  ]);
+
+  const [reservaBlocations, ] = useState([["Rack M", "Rack N", "Rack O"]]);
+
+  useEffect(() => {
+    if (alm1) {
+      setAlmacenValues(alm1.values);
+      setAlmacenInfo(alm1.info);
+    }
+    if (small1) {
+      setReservaSvalues(small1.values);
+      setReservaSinfo(small1.info);
+    }
+    if (big1) {
+      setReservaBvalues(big1.values);
+      setReservaBinfo(big1.info);
+    }
+  }, [alm1, small1, big1]);
+
+  const updateAlmacenValues = (selection) => {
+    if (!alm1 || !alm2 || !alm3) return;
+
+    switch (selection) {
+      case "Cantidad de producto en racks":
+        setAlmacenValues(alm1.values);
+        setAlmacenInfo(alm1.info);
+        break;
+      case "Cantidad de incidencias":
+        setAlmacenValues(alm2.values);
+        setAlmacenInfo(alm2.info);
+        break;
+      case "Porcentaje de conteo realizado":
+        setAlmacenValues(alm3.values);
+        setAlmacenInfo(alm3.info);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const updateReservaSValues = (selection) => {
+    if (!small1 || !small2 || !small3) return;
+
+    switch (selection) {
+      case "Cantidad de producto en racks":
+        setReservaSvalues(small1.values);
+        setReservaSinfo(small1.info);
+        break;
+      case "Cantidad de incidencias":
+        setReservaSvalues(small2.values);
+        setReservaSinfo(small2.info);
+        break;
+      case "Porcentaje de conteo realizado":
+        setReservaSvalues(small3.values);
+        setReservaSinfo(small3.info);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const updateReservaBValues = (selection) => {
+    if (!big1 || !big2 || !big3) return;
+
+    switch (selection) {
+      case "Cantidad de producto en racks":
+        setReservaBvalues(big1.values);
+        setReservaBinfo(big1.info);
+        break;
+      case "Cantidad de incidencias":
+        setReservaBvalues(big2.values);
+        setReservaBinfo(big2.info);
+        break;
+      case "Porcentaje de conteo realizado":
+        setReservaBvalues(big3.values);
+        setReservaBinfo(big3.info);
+        break;
+      default:
+        break;
+    }
+  };
 
   const Informacion = ({ visible }) => {
     return visible && (
-      <div className="info">En este rack hay {selectedRack}</div>
+      <div className="info">En este rack hay {selectedRackInfo}</div>
     );
   };
 
   return (
     <Router>
       <div className="App">
-        <Data
-          onDataLoaded={setAlmacenData}
-          onUpdateValues={setUpdateMethods}
-        />
         <Routes>
           <Route path="/" element={<Navigate to="/mapa" />} />
           <Route
             path="/mapa"
-            element={<Mapa/>}
+            element={<Mapa setSelectedLocation={setSelectedLocation}/>}
           />
           <Route
             path="/almacen"
@@ -244,19 +174,22 @@ function App() {
                     <IoIosArrowBack size={34} />
                   </Link>
                   <Filtro
-                    updateAlmacenValues={updateMethods.updateAlmacenValues}
+                    updateAlmacenValues={updateAlmacenValues}
                     selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
                   />
                   <Informacion visible={isHovered} />
                 </div>
                 <Almacen
-                  almacenValues={almacenData.almacenValues}
+                  almacenValues={almacenValues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
-                  locations={almacenData.almacenLocations}
-                  info={almacenData.almacenInfo}
-                  setSelectedRack={setSelectedRack}
+                  locations={almacenLocations}
+                  info={almacenInfo}
+                  setSelectedRack={setSelectedRackInfo}
+                  selectedLocation={selectedLocation}
+                  onFetchData={AlmacenDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
@@ -276,19 +209,22 @@ function App() {
                     <IoIosArrowBack size={34} />
                   </Link>
                   <Filtro
-                    updateAlmacenValues={updateMethods.updateReservaSValues}
+                    updateAlmacenValues={updateReservaSValues}
                     selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
                   />
                   <Informacion visible={isHovered} />
                 </div>
                 <ReservaSmall
-                  almacenValues={almacenData.reservaSvalues}
+                  almacenValues={reservaSvalues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
-                  locations={almacenData.reservaSlocations}
-                  info={almacenData.reservaSinfo}
-                  setSelectedRack={setSelectedRack}
+                  locations={reservaSlocations}
+                  info={reservaSinfo}
+                  setSelectedRack={setSelectedRackInfo}
+                  selectedLocation={selectedLocation}
+                  onFetchData={SmallDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
@@ -308,25 +244,28 @@ function App() {
                     <IoIosArrowBack size={34} />
                   </Link>
                   <Filtro
-                    updateAlmacenValues={updateMethods.updateReservaBValues}
+                    updateAlmacenValues={updateReservaBValues}
                     selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}
                   />
                   <Informacion visible={isHovered} />
                 </div>
                 <ReservaBig
-                  almacenValues={almacenData.reservaBvalues}
+                  almacenValues={reservaBvalues}
                   selectedOption={selectedOption}
                   setIsHovered={setIsHovered}
-                  locations={almacenData.reservaBlocations}
-                  info={almacenData.reservaBinfo}
-                  setSelectedRack={setSelectedRack}
+                  locations={reservaBlocations}
+                  info={reservaBinfo}
+                  setSelectedRack={setSelectedRackInfo}
+                  selectedLocation={selectedLocation}
+                  onFetchData={BigDataFetch}
+                  setRack={setRack}
                 />
               </>
             }
           />
-          <Route path="/rack" element={<Rack />} />
-          <Route path="/rack2" element={<Rack2 />} />
+          <Route path="/rack" element={<Rack selectedRack={rack}/>} />
+          <Route path="/rack2" element={<Rack2 selectedRack={rack}/>} />
         </Routes>
       </div>
     </Router>
